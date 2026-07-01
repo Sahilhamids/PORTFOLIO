@@ -104,7 +104,7 @@ export default function Projects() {
         </div>
 
         <div className="space-y-5">
-          {projects.map((p, i) => (
+          {projects.map((p: Project, i: number) => (
             <div
               key={p.name}
               className="card-glow rounded-lg relative overflow-hidden"
