@@ -23,7 +23,7 @@ const workExp = [
     bullets: [
       "Performed logic simulation in CodeSys, executed equipment wiring, and troubleshot industrial sensors.",
       "Structured PL/SQL queries to extract historical process parameters from plant Oracle databases for shift-wise efficiency reporting.",
-      "Conducted sequence of operation studies and oversaw cable tray installations for the Truck Tippler project.",
+      "Conducted sequence of operation studies for the Truck Tippler project.",
     ],
   },
 ];
