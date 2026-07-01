@@ -90,7 +90,7 @@ export default function CodingProfiles() {
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 gap-6 max-w-3xl">
 
           {/* ── LeetCode ── */}
           <WindowFrame title="leetcode.com/u/sahilhamid" url="https://leetcode.com/u/sahilhamid/" color="#ffa116">
@@ -164,42 +164,6 @@ export default function CodingProfiles() {
             </p>
           </WindowFrame>
 
-          {/* ── NeetCode ── */}
-          <WindowFrame title="neetcode.io" url="https://neetcode.io/practice" color="#7c3aed">
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center text-xl flex-shrink-0"
-                style={{ background: "rgba(124,58,237,0.1)", border: "1px solid rgba(124,58,237,0.2)" }}>
-                🎯
-              </div>
-              <div>
-                <p className="font-bold text-white">NeetCode 150</p>
-                <p className="text-xs" style={{ color: "var(--muted)" }}>Structured DSA roadmap</p>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              {[
-                { topic: "Arrays & Hashing",     done: true },
-                { topic: "Two Pointers",          done: true },
-                { topic: "Sliding Window",        done: true },
-                { topic: "Stack",                 done: true },
-                { topic: "Binary Search",         done: true },
-                { topic: "Linked List",           done: false },
-                { topic: "Trees",                 done: false },
-              ].map(({ topic, done }) => (
-                <div key={topic} className="flex items-center gap-2">
-                  <span className="text-xs flex-shrink-0" style={{ color: done ? "#00ff88" : "var(--border)" }}>
-                    {done ? "✓" : "○"}
-                  </span>
-                  <span className="text-xs" style={{ color: done ? "var(--text)" : "var(--muted)" }}>{topic}</span>
-                </div>
-              ))}
-            </div>
-
-            <p className="text-xs mt-4" style={{ color: "var(--muted)" }}>
-              Active practice — update as you progress
-            </p>
-          </WindowFrame>
 
         </div>
       </div>
