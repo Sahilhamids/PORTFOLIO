@@ -96,7 +96,7 @@ export default function Experience() {
             <div className="card-glow rounded-lg p-5" style={{ background: "var(--surface)" }}>
               <div className="flex items-start gap-3 mb-2">
                 <div className="flex-shrink-0 w-10 h-10 rounded overflow-hidden" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid var(--border)" }}>
-                  <Image src="/images/education/gcoec.png" alt="GCOEC" width={40} height={40} className="w-full h-full object-contain p-1"
+                  <Image src="/images/education/gcoec.jpg" alt="GCOEC" width={40} height={40} className="w-full h-full object-contain p-1"
                     onError={(ev) => { (ev.currentTarget as HTMLImageElement).style.display = "none"; }} />
                 </div>
                 <div>
