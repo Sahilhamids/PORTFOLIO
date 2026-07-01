@@ -4,6 +4,20 @@
 // Recommended size: 1200×750px, .png or .jpg
 const projects = [
   {
+    name: "SafarHisab",
+    tagline: "Travel expense & debt-settlement engine — deploy pending",
+    image: "/images/projects/safarhisab.png",
+    description:
+      "REST API for group travel expense tracking with a Max-Heap settlement algorithm that minimises total peer-to-peer transactions by 40%+. Built with FastAPI, SQLAlchemy ORM, Alembic migrations, JWT role-based auth, real-time currency conversion via Frankfurter API, and an automated event-driven notification service.",
+    stack: ["Python", "FastAPI", "SQLAlchemy", "Alembic", "PostgreSQL", "JWT", "Pydantic"],
+    links: {
+      github: "https://github.com/Sahilhamids",
+    },
+    accent: "var(--purple)",
+    badge: "IN PROGRESS",
+    category: "Backend / Finance",
+  },
+  {
     name: "Career Intelligence Platform",
     tagline: "AI-powered resume SaaS — live on Render",
     image: "/images/projects/career-platform.png",
@@ -17,20 +31,6 @@ const projects = [
     accent: "var(--cyan)",
     badge: "LIVE",
     category: "Backend / AI",
-  },
-  {
-    name: "SafarHisab",
-    tagline: "Travel expense & debt-settlement engine — deploy pending",
-    image: "/images/projects/safarhisab.png",
-    description:
-      "REST API for group travel expense tracking with a Max-Heap settlement algorithm that minimises total peer-to-peer transactions by 40%+. Built with FastAPI, SQLAlchemy ORM, Alembic migrations, JWT role-based auth, real-time currency conversion via Frankfurter API, and an automated event-driven notification service.",
-    stack: ["Python", "FastAPI", "SQLAlchemy", "Alembic", "PostgreSQL", "JWT", "Pydantic"],
-    links: {
-      github: "https://github.com/Sahilhamids",
-    },
-    accent: "var(--purple)",
-    badge: "IN PROGRESS",
-    category: "Backend / Finance",
   },
   {
     name: "Smart Automated Fertigation System",
