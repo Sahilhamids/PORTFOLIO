@@ -54,8 +54,7 @@ export default function About() {
               <p>
                 I&apos;m Sahil — a backend-focused software engineer with an Electronics &amp; Telecom
                 engineering background. I spent a year in industrial automation at Ambuja Cements (Adani Group),
-                where I wrote Groovy scripts for SAP workflow automation and led a machine HMI upgrade that cut
-                downtime by 30%. Now I&apos;m fully focused on backend and software development.
+                where I wrote Groovy scripts for SAP workflow automation. Now I&apos;m fully focused on backend and software development.
               </p>
               <p>
                 I build with Python and FastAPI — from AI-powered SaaS platforms to financial settlement engines.
