@@ -1,6 +1,19 @@
 "use client";
+
+interface Project {
+  name: string;
+  tagline: string;
+  description: string;
+  stack: string[];
+  links: { github: string; live?: string };
+  accent: string;
+  badge: string | null;
+  category: string;
+  image?: string;
+}
+
 // To add a screenshot: drop an image in public/images/projects/ and add image: "/images/projects/filename.png" to the project entry
-const projects = [
+const projects: Project[] = [
   {
     name: "SafarHisab",
     tagline: "Travel expense & debt-settlement engine",
