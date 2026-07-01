@@ -63,7 +63,7 @@ export default function About() {
                 decision.
               </p>
               <p>
-                140+ LeetCode problems solved, 1st-place capstone project, and always learning in public.
+                140+ LeetCode problems solved and ranked 1st out of 6 teams in the final-year capstone evaluation.
               </p>
             </div>
 

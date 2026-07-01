@@ -1,26 +1,23 @@
 "use client";
-// Drop a screenshot in public/images/projects/ with the matching filename.
-// The card automatically switches to a two-column layout when the image exists.
-// Recommended size: 1200×750px, .png or .jpg
+// To add a screenshot: drop an image in public/images/projects/ and add image: "/images/projects/filename.png" to the project entry
 const projects = [
   {
     name: "SafarHisab",
-    tagline: "Travel expense & debt-settlement engine — deploy pending",
-    image: "/images/projects/safarhisab.png",
+    tagline: "Travel expense & debt-settlement engine",
     description:
-      "REST API for group travel expense tracking with a Max-Heap settlement algorithm that minimises total peer-to-peer transactions by 40%+. Built with FastAPI, SQLAlchemy ORM, Alembic migrations, JWT role-based auth, real-time currency conversion via Frankfurter API, and an automated event-driven notification service.",
+      "REST API for group travel expense tracking with a Max-Heap settlement algorithm that minimises total peer-to-peer transactions by 40%+. Built with FastAPI, SQLAlchemy ORM, Alembic migrations, JWT role-based auth, real-time multi-currency conversion via Frankfurter API, and an event-driven notification service.",
     stack: ["Python", "FastAPI", "SQLAlchemy", "Alembic", "PostgreSQL", "JWT", "Pydantic"],
     links: {
-      github: "https://github.com/Sahilhamids",
+      live: "https://safar-hisab-v1.vercel.app/",
+      github: "https://github.com/Sahilhamids/SafarHisab-v1",
     },
     accent: "var(--purple)",
-    badge: "IN PROGRESS",
+    badge: "LIVE",
     category: "Backend / Finance",
   },
   {
     name: "Career Intelligence Platform",
     tagline: "AI-powered resume SaaS — live on Render",
-    image: "/images/projects/career-platform.png",
     description:
       "Backend-heavy SaaS that parses resumes against job descriptions using Google Gemini AI with a Groq/Llama-3.1 fallback. Architected a dual-LLM routing layer, JWT anonymous sessions, rate limiting, PDF/DOCX generation, AI cover letter creation, and a Kanban job tracker — all served from a single FastAPI + Postgres deployment on Render.",
     stack: ["Python", "FastAPI", "Gemini AI", "Groq API", "PostgreSQL", "SQLAlchemy", "JWT"],
@@ -33,23 +30,8 @@ const projects = [
     category: "Backend / AI",
   },
   {
-    name: "AWS Serverless ETL Pipeline",
-    tagline: "Data engineering learning project",
-    image: "/images/projects/aws-etl.png",
-    description:
-      "Event-driven data pipeline to ingest and transform e-commerce transaction payloads. Deployed serverless Python scripts inside AWS Lambda and Glue to automate raw data extraction and schema parsing into S3. Built to understand cloud data engineering patterns hands-on.",
-    stack: ["Python", "AWS Lambda", "AWS Glue", "AWS S3"],
-    links: {
-      github: "https://github.com/Sahilhamids",
-    },
-    accent: "var(--purple)",
-    badge: "LEARNING",
-    category: "Cloud / Data",
-  },
-  {
     name: "Smart Automated Fertigation System",
     tagline: "Final-year capstone — Ranked 1st out of 6 teams",
-    image: "/images/projects/fertigation.png",
     description:
       "Embedded C firmware on ESP32 for automated NPK fertilizer dosing. Sensor-driven rule-based logic reads soil data from NPK sensors and triggers valve relays in real time. Integrated IoT remote monitoring, Modbus communication, I2C sensor bus, and simulated the full circuit in Proteus Professional. Led a 5-member team.",
     stack: ["C", "ESP32", "Proteus", "Modbus", "I2C", "IoT", "Arduino"],
@@ -63,7 +45,6 @@ const projects = [
   {
     name: "Phase Switching Protection Circuit",
     tagline: "Academic hardware project",
-    image: "/images/projects/phase-switching.png",
     description:
       "Designed and tested a protection circuit for single-phase and three-phase motors that detects single-phasing conditions and triggers a relay to disconnect the motor before winding damage occurs. Full circuit designed and simulated in Proteus Professional, Arduino used for switching logic.",
     stack: ["C", "Arduino", "Proteus", "Circuit Design"],
@@ -77,7 +58,6 @@ const projects = [
   {
     name: "GSM-Based Home Automation",
     tagline: "Academic embedded project",
-    image: "/images/projects/gsm-home.png",
     description:
       "Remote appliance control system using GSM communication. Built command-based switching logic in C on Arduino to parse incoming SMS commands and toggle relays for connected appliances reliably.",
     stack: ["C", "Arduino", "GSM"],

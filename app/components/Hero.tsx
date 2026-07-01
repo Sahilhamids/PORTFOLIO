@@ -47,7 +47,7 @@ export default function Hero() {
 
       <div className="max-w-6xl mx-auto px-6 pt-24 pb-16 w-full">
         <div className="max-w-3xl">
-          <p className="section-label mb-4 animate-fade-in-up">Hello, World —</p>
+          <p className="section-label mb-4 animate-fade-in-up">Based in India —</p>
 
           <h1
             className="font-black leading-none mb-4 animate-fade-in-up delay-100"

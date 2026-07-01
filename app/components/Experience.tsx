@@ -131,8 +131,12 @@ export default function Experience() {
 
             <div className="card-glow rounded-lg p-5 text-center" style={{ background: "var(--surface)" }}>
               <p className="text-sm text-white mb-3">Want the full picture?</p>
-              <a href="mailto:ssahil9635@gmail.com" className="btn-primary text-xs w-full justify-center">
-                Request Resume ✉
+              <a
+                href="/resume/Sahil_Hamid_Shaikh_Resume.pdf"
+                download="Sahil_Hamid_Shaikh_Resume.pdf"
+                className="btn-primary text-xs w-full justify-center"
+              >
+                Download Resume ↓
               </a>
             </div>
           </div>
