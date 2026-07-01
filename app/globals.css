@@ -13,6 +13,9 @@
 
 * { box-sizing: border-box; }
 
+html, body { cursor: none; }
+a, button { cursor: none; }
+
 html { scroll-behavior: smooth; }
 
 body {

@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import ThemeToggle from "./ThemeToggle";
 
 const links = ["about", "projects", "skills", "experience", "contact"];
 
@@ -34,6 +35,7 @@ export default function Navbar() {
               {l}
             </a>
           ))}
+          <ThemeToggle />
           <a
             href="https://github.com/Sahilhamids"
             target="_blank"
