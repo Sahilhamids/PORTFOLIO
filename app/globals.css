@@ -127,7 +127,7 @@ body {
 }
 .btn-ghost:hover {
   border-color: var(--muted);
-  color: #fff;
+  color: var(--text);
 }
 
 .section-label {
@@ -141,7 +141,7 @@ body {
 .section-title {
   font-size: clamp(1.5rem, 3vw, 2.2rem);
   font-weight: 700;
-  color: #fff;
+  color: var(--text);
   line-height: 1.2;
 }
 
@@ -150,5 +150,20 @@ body {
   background: linear-gradient(90deg, var(--cyan), var(--purple));
   border-radius: 1px;
   transition: width 1s ease-out;
+}
+
+/* ── Light theme overrides ── */
+[data-theme="light"] .text-white { color: var(--text) !important; }
+[data-theme="light"] h1, [data-theme="light"] h2,
+[data-theme="light"] h3, [data-theme="light"] h4 { color: var(--text); }
+[data-theme="light"] .card-glow:hover {
+  border-color: rgba(8,145,178,0.4);
+  box-shadow: 0 0 30px rgba(8,145,178,0.1), inset 0 0 30px rgba(8,145,178,0.03);
+}
+[data-theme="light"] .glow-text { text-shadow: 0 0 30px rgba(8,145,178,0.3); }
+[data-theme="light"] .grid-bg {
+  background-image:
+    linear-gradient(rgba(8,145,178,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(8,145,178,0.06) 1px, transparent 1px);
 }
 

@@ -53,6 +53,7 @@ export default function ThemeToggle() {
     if (!theme) return;
     const root = document.documentElement;
     Object.entries(theme.vars).forEach(([k, v]) => root.style.setProperty(k, v));
+    root.setAttribute("data-theme", id);
     setActive(id);
     localStorage.setItem("portfolio-theme", id);
     setOpen(false);
