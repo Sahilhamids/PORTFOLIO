@@ -33,6 +33,20 @@ const projects = [
     category: "Backend / AI",
   },
   {
+    name: "AWS Serverless ETL Pipeline",
+    tagline: "Data engineering learning project",
+    image: "/images/projects/aws-etl.png",
+    description:
+      "Event-driven data pipeline to ingest and transform e-commerce transaction payloads. Deployed serverless Python scripts inside AWS Lambda and Glue to automate raw data extraction and schema parsing into S3. Built to understand cloud data engineering patterns hands-on.",
+    stack: ["Python", "AWS Lambda", "AWS Glue", "AWS S3"],
+    links: {
+      github: "https://github.com/Sahilhamids",
+    },
+    accent: "var(--purple)",
+    badge: "LEARNING",
+    category: "Cloud / Data",
+  },
+  {
     name: "Smart Automated Fertigation System",
     tagline: "Final-year capstone — Ranked 1st out of 6 teams",
     image: "/images/projects/fertigation.png",
@@ -59,20 +73,6 @@ const projects = [
     accent: "var(--cyan)",
     badge: null,
     category: "Embedded / Hardware",
-  },
-  {
-    name: "AWS Serverless ETL Pipeline",
-    tagline: "Data engineering learning project",
-    image: "/images/projects/aws-etl.png",
-    description:
-      "Event-driven data pipeline to ingest and transform e-commerce transaction payloads. Deployed serverless Python scripts inside AWS Lambda and Glue to automate raw data extraction and schema parsing into S3. Built to understand cloud data engineering patterns hands-on.",
-    stack: ["Python", "AWS Lambda", "AWS Glue", "AWS S3"],
-    links: {
-      github: "https://github.com/Sahilhamids",
-    },
-    accent: "var(--purple)",
-    badge: "LEARNING",
-    category: "Cloud / Data",
   },
   {
     name: "GSM-Based Home Automation",
