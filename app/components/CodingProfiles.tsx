@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { GitHubCalendar } from "react-github-calendar";
 import { ActivityCalendar } from "react-activity-calendar";
 
@@ -14,6 +14,42 @@ interface LCStats {
   totalHard: number;
   ranking: number;
   acceptanceRate: number;
+}
+
+function ScrollToRight({ children }: { children: React.ReactNode }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    if (!scrollRef.current) return;
+    const el = scrollRef.current;
+    
+    // Scroll to right immediately and whenever the container or its children resize
+    const scrollToRight = () => {
+      el.scrollLeft = el.scrollWidth;
+    };
+    
+    const observer = new ResizeObserver(scrollToRight);
+    observer.observe(el);
+    if (el.firstElementChild) {
+      observer.observe(el.firstElementChild);
+    }
+    
+    // Fallback timer just in case async children load slightly later
+    const timer = setTimeout(scrollToRight, 1000);
+    
+    return () => {
+      observer.disconnect();
+      clearTimeout(timer);
+    };
+  }, [children]);
+
+  return (
+    <div ref={scrollRef} className="p-2 md:p-6 overflow-hidden overflow-x-auto w-full no-scrollbar">
+      <div className="min-w-max flex justify-center md:justify-end">
+        {children}
+      </div>
+    </div>
+  );
 }
 
 function WindowFrame({ title, url, color, children }: {
@@ -235,7 +271,7 @@ export default function CodingProfiles() {
         {/* ── GitHub Activity ── */}
         <div className="mt-6">
           <WindowFrame title="github.com/Sahilhamids" url="https://github.com/Sahilhamids" color="#ffffff">
-            <div className="p-2 md:p-6 overflow-hidden overflow-x-auto flex justify-center w-full">
+            <ScrollToRight>
               <GitHubCalendar 
                 username="Sahilhamids" 
                 colorScheme="dark"
@@ -243,14 +279,14 @@ export default function CodingProfiles() {
                 blockSize={12}
                 blockMargin={4}
               />
-            </div>
+            </ScrollToRight>
           </WindowFrame>
         </div>
 
         {/* ── LeetCode Activity ── */}
         <div className="mt-6">
           <WindowFrame title="leetcode.com/u/sahilhamid (Activity)" url="https://leetcode.com/u/sahilhamid/" color="#ffa116">
-            <div className="p-2 md:p-6 overflow-hidden overflow-x-auto flex justify-center w-full">
+            <ScrollToRight>
               {lcActivity.length > 0 ? (
                 <ActivityCalendar 
                   data={lcActivity} 
@@ -266,7 +302,7 @@ export default function CodingProfiles() {
               ) : (
                 <p className="text-sm text-[var(--muted)]">Loading Activity...</p>
               )}
-            </div>
+            </ScrollToRight>
           </WindowFrame>
         </div>
 
