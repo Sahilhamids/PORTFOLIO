@@ -165,7 +165,7 @@ export default function Hero() {
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             style={{ transformOrigin: "bottom left" }}
           >
-            <Image src="/images/hero/photo1.jpg" alt="Sahil Hamid" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+            <Image src="/images/hero/photo3.jpg" alt="Sahil Hamid" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
             <div className="absolute inset-0 bg-[var(--cyan)]/20 mix-blend-overlay pointer-events-none transition-opacity duration-300 group-hover:opacity-0" />
           </motion.div>
 
@@ -188,7 +188,7 @@ export default function Hero() {
             whileHover={{ rotate: 0, x: 0, y: -40, scale: 1.05, zIndex: 40 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <Image src="/images/hero/photo3.jpg" alt="Sahil Hamid" fill className="object-cover transition-all duration-500" priority />
+            <Image src="/images/hero/photo1.jpg" alt="Sahil Hamid" fill className="object-cover transition-all duration-500" priority />
           </motion.div>
         </motion.div>
       </div>
