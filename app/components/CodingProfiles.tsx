@@ -194,6 +194,20 @@ export default function CodingProfiles() {
           </WindowFrame>
         </div>
 
+        {/* ── LeetCode Activity ── */}
+        <div className="mt-6">
+          <WindowFrame title="leetcode.com/u/sahilhamid (Activity)" url="https://leetcode.com/u/sahilhamid/" color="#ffa116">
+            <div className="p-2 md:p-6 overflow-hidden overflow-x-auto flex justify-center w-full">
+              {/* Using leetcard generator for a beautiful SVG activity graph */}
+              <img 
+                src="https://leetcard.jacoblin.cool/sahilhamid?theme=dark&font=Syne&ext=activity" 
+                alt="LeetCode Activity Calendar" 
+                className="w-full max-w-3xl opacity-90 hover:opacity-100 transition-opacity"
+              />
+            </div>
+          </WindowFrame>
+        </div>
+
       </div>
     </section>
   );
