@@ -16,14 +16,6 @@ export const metadata: Metadata = {
     description: "Portfolio of Sahil Hamid Shaikh, AI & Backend Engineer specializing in Python, FastAPI, and full-stack development.",
     url: "https://portfolio-sahilhamids.vercel.app",
     siteName: "Sahil Hamid Portfolio",
-    images: [
-      {
-        url: "/images/hero/photo1.jpg", // Using the airport photo as default OG image
-        width: 1200,
-        height: 630,
-        alt: "Sahil Hamid Shaikh Portfolio",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
@@ -31,7 +23,6 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sahil Hamid Shaikh | Full-Stack Engineer",
     description: "Portfolio of Sahil Hamid Shaikh, AI & Backend Engineer specializing in Python, FastAPI, and full-stack development.",
-    images: ["/images/hero/photo1.jpg"],
   },
 };
 
