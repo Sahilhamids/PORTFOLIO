@@ -16,20 +16,15 @@ export default function Contact() {
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: {
-          Accept: "application/json"
-        },
         body: formData,
       });
 
-      const data = await response.json();
-
-      if (data.success) {
+      if (response.ok || response.status === 200) {
         setStatus("success");
         e.currentTarget.reset();
       } else {
         setStatus("error");
-        setErrorMessage(data.message || "Something went wrong.");
+        setErrorMessage("Rate limited or something went wrong.");
       }
     } catch (err) {
       setStatus("error");
