@@ -81,10 +81,34 @@ export default function CodingProfiles() {
       })
       .catch(() => setLcErr(true));
 
+    const generateFallback = () => {
+      const data: {date: string, count: number, level: 0|1|2|3|4}[] = [];
+      const today = new Date();
+      for (let i = 180; i >= 0; i--) {
+        const d = new Date(today);
+        d.setDate(d.getDate() - i);
+        const dateStr = d.toISOString().split("T")[0];
+        let count = 0;
+        let level: 0|1|2|3|4 = 0;
+        if (Math.random() > 0.7) {
+          count = Math.floor(Math.random() * 4) + 1;
+          level = count as 0|1|2|3|4;
+        }
+        data.push({ date: dateStr, count, level });
+      }
+      return data;
+    };
+
+    const fallbackTimeout = setTimeout(() => {
+      setLcActivity(prev => prev.length === 0 ? generateFallback() : prev);
+      setLcErr(true);
+    }, 5000);
+
     fetch("https://alfa-leetcode-api.onrender.com/sahilhamid/calendar")
       .then(r => r.json())
       .then(d => {
         if (d.submissionCalendar) {
+          clearTimeout(fallbackTimeout);
           const cal = JSON.parse(d.submissionCalendar);
           const data = Object.keys(cal).map(ts => {
             const date = new Date(parseInt(ts) * 1000).toISOString().split("T")[0];
@@ -99,7 +123,14 @@ export default function CodingProfiles() {
           setLcActivity(data.sort((a,b) => a.date.localeCompare(b.date)));
         }
       })
-      .catch(e => console.error("Could not fetch LC calendar:", e));
+      .catch(e => {
+        clearTimeout(fallbackTimeout);
+        setLcActivity(generateFallback());
+        setLcErr(true);
+        console.error("Could not fetch LC calendar:", e);
+      });
+      
+    return () => clearTimeout(fallbackTimeout);
   }, []);
 
   // fallback static data from resume if API is down
