@@ -1,16 +1,45 @@
 "use client";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
+import { motion, AnimatePresence, Variants, PanInfo } from "framer-motion";
 import { ChevronDown, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import MagneticButton from "./MagneticButton";
 
 const roles = ["Backend Engineer", "Python Developer", "API Builder", "AI-Augmented Developer"];
 
+const initialPhotos = [
+  { id: 1, src: "/images/hero/photo1.jpg", alt: "Sahil Hamid", color: "transparent" },
+  { id: 2, src: "/images/hero/photo2.jpg", alt: "Sahil Hamid 2", color: "var(--purple)" },
+  { id: 3, src: "/images/hero/photo3.jpg", alt: "Sahil Hamid 3", color: "var(--cyan)" }
+];
+
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [leetcodeCount, setLeetcodeCount] = useState("140+");
   const [isMobile, setIsMobile] = useState(true); // Default true to avoid hydration mismatch layout breaking
+  const [photos, setPhotos] = useState(initialPhotos);
+
+  const handleDragEnd = (event: any, info: PanInfo) => {
+    const swipeThreshold = 50;
+    if (Math.abs(info.offset.x) > swipeThreshold || Math.abs(info.offset.y) > swipeThreshold) {
+      setPhotos(prev => {
+        const arr = [...prev];
+        const top = arr.shift();
+        if (top) arr.push(top);
+        return arr;
+      });
+    }
+  };
+
+  const handleCardClick = (index: number) => {
+    if (index === 0) return;
+    setPhotos(prev => {
+      const arr = [...prev];
+      const clicked = arr.splice(index, 1)[0];
+      arr.unshift(clicked);
+      return arr;
+    });
+  };
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -179,42 +208,62 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="relative h-[400px] md:h-[500px] w-full flex items-center justify-center group mt-16 lg:mt-0 mb-10 lg:mb-0"
         >
-          {/* Photo 1 (Bottom Left) */}
-          <motion.div
-            className="absolute w-44 h-60 md:w-72 md:h-96 rounded-xl overflow-hidden brutal-border shadow-2xl z-10"
-            initial={{ rotate: -12, x: isMobile ? -20 : -40, y: isMobile ? 15 : 30 }}
-            whileHover={{ rotate: -25, x: isMobile ? -60 : -120, y: isMobile ? 5 : 10, scale: 1.05, zIndex: 40 }}
-            whileTap={{ rotate: -25, x: isMobile ? -60 : -120, y: isMobile ? 5 : 10, scale: 1.05, zIndex: 40 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            style={{ transformOrigin: "bottom left" }}
-          >
-            <Image src="/images/hero/photo3.jpg" alt="Sahil Hamid" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
-            <div className="absolute inset-0 bg-[var(--cyan)]/20 mix-blend-overlay pointer-events-none transition-opacity duration-300 group-hover:opacity-0" />
-          </motion.div>
+          {photos.map((photo, index) => {
+            const isTop = index === 0;
+            const isRight = index === 1;
+            const isLeft = index === 2;
 
-          {/* Photo 2 (Bottom Right) */}
-          <motion.div
-            className="absolute w-44 h-60 md:w-72 md:h-96 rounded-xl overflow-hidden brutal-border shadow-2xl z-20"
-            initial={{ rotate: 8, x: isMobile ? 20 : 40, y: isMobile ? -5 : -10 }}
-            whileHover={{ rotate: 20, x: isMobile ? 60 : 120, y: isMobile ? -10 : -20, scale: 1.05, zIndex: 40 }}
-            whileTap={{ rotate: 20, x: isMobile ? 60 : 120, y: isMobile ? -10 : -20, scale: 1.05, zIndex: 40 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            style={{ transformOrigin: "bottom right" }}
-          >
-            <Image src="/images/hero/photo2.jpg" alt="Sahil Hamid" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
-            <div className="absolute inset-0 bg-[var(--purple)]/20 mix-blend-overlay pointer-events-none transition-opacity duration-300 group-hover:opacity-0" />
-          </motion.div>
+            const hoverX = isTop ? 0 : isRight ? (isMobile ? 60 : 120) : (isMobile ? -60 : -120);
+            const hoverY = isTop ? (isMobile ? -20 : -40) : isRight ? (isMobile ? -10 : -20) : (isMobile ? 5 : 10);
+            const hoverRotate = isTop ? 0 : isRight ? 20 : -25;
+            
+            const initialRotate = isTop ? -2 : isRight ? 8 : -12;
+            const initialX = isTop ? 0 : isRight ? (isMobile ? 20 : 40) : (isMobile ? -20 : -40);
+            const initialY = isTop ? 0 : isRight ? (isMobile ? -5 : -10) : (isMobile ? 15 : 30);
+            const transformOrigin = isTop ? "center" : isRight ? "bottom right" : "bottom left";
 
-          {/* Photo 3 (Top Center) */}
-          <motion.div
-            className="absolute w-52 h-72 md:w-[320px] md:h-[400px] rounded-xl overflow-hidden brutal-border shadow-2xl z-30"
-            initial={{ rotate: -2, x: 0, y: 0 }}
-            whileHover={{ rotate: 0, x: 0, y: isMobile ? -20 : -40, scale: 1.05, zIndex: 40 }}
-            whileTap={{ rotate: 0, x: 0, y: isMobile ? -20 : -40, scale: 1.05, zIndex: 40 }}
-            transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          >
-            <Image src="/images/hero/photo1.jpg" alt="Sahil Hamid" fill className="object-cover transition-all duration-500" priority />
-          </motion.div>
+            return (
+              <motion.div
+                key={photo.id}
+                layout
+                drag={isTop ? "x" : false}
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.8}
+                onDragEnd={isTop ? handleDragEnd : undefined}
+                onClick={() => handleCardClick(index)}
+                initial={false}
+                animate={{ 
+                  rotate: initialRotate, 
+                  x: initialX, 
+                  y: initialY, 
+                  zIndex: 30 - index * 10,
+                  scale: 1
+                }}
+                whileHover={{ 
+                  rotate: hoverRotate, 
+                  x: hoverX, 
+                  y: hoverY, 
+                  scale: 1.05, 
+                  zIndex: 40 
+                }}
+                whileTap={isTop ? { scale: 0.95 } : { 
+                  rotate: hoverRotate, 
+                  x: hoverX, 
+                  y: hoverY, 
+                  scale: 1.05, 
+                  zIndex: 40 
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                style={{ transformOrigin }}
+                className={`absolute rounded-xl overflow-hidden brutal-border shadow-2xl ${isTop ? "cursor-grab active:cursor-grabbing" : "cursor-pointer"} ${
+                  isTop ? "w-52 h-72 md:w-[320px] md:h-[400px]" : "w-44 h-60 md:w-72 md:h-96"
+                }`}
+              >
+                <Image src={photo.src} alt={photo.alt} fill className={`object-cover transition-all duration-500 ${!isTop && 'grayscale'}`} priority={isTop} />
+                {!isTop && <div className="absolute inset-0 mix-blend-overlay pointer-events-none transition-opacity duration-300 group-hover:opacity-0" style={{ backgroundColor: photo.color, opacity: 0.2 }} />}
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
 
