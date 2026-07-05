@@ -72,7 +72,7 @@ export default function Hero() {
           <motion.h1
             variants={itemVariants}
             className="font-black leading-none mb-6 tracking-tight"
-            style={{ fontSize: "clamp(2.75rem, 8vw, 5.5rem)", color: "#fff" }}
+            style={{ fontSize: "clamp(2.75rem, 8vw, 5.5rem)", color: "var(--text)" }}
           >
             SAHIL HAMID<br />
             <span style={{ color: "var(--cyan)" }} className="glow-text block mt-1">SHAIKH</span>
@@ -99,7 +99,7 @@ export default function Hero() {
 
           <motion.p
             variants={itemVariants}
-            className="mb-10 max-w-xl text-lg leading-relaxed text-slate-300/80"
+            className="mb-10 max-w-xl text-lg leading-relaxed text-[var(--text)] opacity-80"
           >
             I&apos;m a software engineer focused on AI-powered applications and backend systems.
             I love turning complex problems into clean, fast, and useful products —
@@ -107,16 +107,16 @@ export default function Hero() {
           </motion.p>
 
           <motion.div variants={itemVariants} className="flex flex-wrap gap-6 mt-4">
-            <a href="#projects" className="group flex items-center gap-3 bg-white/5 hover:bg-white/10 text-white border brutal-border px-8 py-4 transition-all">
+            <a href="#projects" className="group flex items-center gap-3 bg-[var(--surface)] hover:bg-[var(--border)] text-[var(--text)] border brutal-border px-8 py-4 transition-all">
               <span className="font-bold tracking-wide uppercase text-sm">View My Work</span>
-              <div className="overflow-hidden relative w-4 h-4 text-cyan-400">
+              <div className="overflow-hidden relative w-4 h-4 text-[var(--cyan)]">
                  <ArrowUpRight className="w-4 h-4 absolute group-hover:translate-x-4 group-hover:-translate-y-4 transition-transform duration-300 ease-in-out" />
                  <ArrowUpRight className="w-4 h-4 absolute -translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
               </div>
             </a>
-            <a href="#contact" className="group flex items-center gap-3 px-8 py-4 border border-transparent hover:border-white/10 text-slate-300 hover:text-white transition-all">
+            <a href="#contact" className="group flex items-center gap-3 px-8 py-4 border border-transparent hover:border-[var(--border)] text-[var(--muted)] hover:text-[var(--text)] transition-all">
               <span className="font-bold tracking-wide uppercase text-sm">Get In Touch</span>
-              <div className="overflow-hidden relative w-4 h-4 text-purple-400">
+              <div className="overflow-hidden relative w-4 h-4 text-[var(--purple)]">
                  <ArrowUpRight className="w-4 h-4 absolute group-hover:translate-x-4 group-hover:-translate-y-4 transition-transform duration-300 ease-in-out" />
                  <ArrowUpRight className="w-4 h-4 absolute -translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
               </div>
@@ -126,7 +126,7 @@ export default function Hero() {
           {/* Stats row */}
           <motion.div 
             variants={itemVariants}
-            className="flex flex-wrap gap-10 mt-16 pt-8 border-t border-white/5"
+            className="flex flex-wrap gap-10 mt-16 pt-8 border-t border-[var(--border)]"
           >
             {[
               { value: "140+", label: "LeetCode Problems" },
@@ -138,8 +138,8 @@ export default function Hero() {
                 whileHover={{ y: -2 }}
                 className="group cursor-default"
               >
-                <p className="font-bold text-2xl text-cyan-400 group-hover:text-cyan-300 transition-colors">{s.value}</p>
-                <p className="text-xs mt-1 text-slate-400 group-hover:text-slate-300 transition-colors">{s.label}</p>
+                <p className="font-bold text-2xl text-[var(--cyan)] group-hover:text-[var(--cyan)] transition-colors">{s.value}</p>
+                <p className="text-xs mt-1 text-[var(--muted)] group-hover:text-[var(--text)] transition-colors">{s.label}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -153,12 +153,12 @@ export default function Hero() {
         transition={{ delay: 1.5, duration: 1 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <p className="text-[10px] tracking-widest text-slate-500 font-medium">SCROLL</p>
+        <p className="text-[10px] tracking-widest text-[var(--muted)] font-medium">SCROLL</p>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
-          <ChevronDown className="w-4 h-4 text-cyan-500/50" />
+          <ChevronDown className="w-4 h-4 text-[var(--cyan)] opacity-50" />
         </motion.div>
       </motion.div>
     </section>

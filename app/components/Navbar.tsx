@@ -38,10 +38,11 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${scrolled ? 'bg-[#050508]/80 backdrop-blur-md brutal-border-b shadow-lg' : 'bg-transparent border-b border-transparent'}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'backdrop-blur-md brutal-border-b shadow-lg' : 'border-b border-transparent'}`}
+      style={{ background: scrolled ? "color-mix(in srgb, var(--bg) 85%, transparent)" : "transparent" }}
     >
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
-        <a href="#hero" className="text-white font-bold tracking-widest text-sm hover:text-cyan-400 transition-colors" style={{ letterSpacing: "0.2em" }}>
+        <a href="#hero" className="text-[var(--text)] font-bold tracking-widest text-sm hover:text-[var(--cyan)] transition-colors" style={{ letterSpacing: "0.2em" }}>
           SHS<span className="text-cyan-500">.</span>
         </a>
 
@@ -51,27 +52,27 @@ export default function Navbar() {
             <a 
               key={l} 
               href={`#${l}`} 
-              className={`relative px-4 py-2 capitalize text-sm font-medium transition-colors ${activeLink === l ? 'text-cyan-400' : 'text-slate-300 hover:text-white'}`}
+              className={`relative px-4 py-2 capitalize text-sm font-medium transition-colors ${activeLink === l ? 'text-[var(--cyan)]' : 'text-[var(--text-muted)] hover:text-[var(--text)]'}`}
               onClick={() => setActiveLink(l)}
             >
               {l}
               {activeLink === l && (
                 <motion.div
                   layoutId="activeNavIndicator"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-cyan-400"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--cyan)]"
                   initial={false}
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
               )}
             </a>
           ))}
-          <div className="ml-4 flex items-center gap-4 border-l border-white/10 pl-4">
+          <div className="ml-4 flex items-center gap-4 border-l border-[var(--border)] pl-4">
             <ThemeToggle />
             <a
               href="https://github.com/Sahilhamids"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary text-xs py-1.5 px-4 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 rounded-md transition-all"
+              className="btn-primary text-xs py-1.5 px-4 bg-[var(--cyan)]/10 hover:bg-[var(--cyan)]/20 border border-[var(--cyan)]/30 text-[var(--cyan)] rounded-md transition-all"
             >
               GitHub ↗
             </a>
@@ -84,9 +85,9 @@ export default function Navbar() {
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
-          <span className={`block w-5 h-0.5 bg-white transition-all ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-          <span className={`block w-5 h-0.5 bg-white transition-all ${menuOpen ? 'opacity-0' : 'opacity-100'}`} />
-          <span className={`block w-5 h-0.5 bg-white transition-all ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+          <span className={`block w-5 h-0.5 bg-[var(--text)] transition-all ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+          <span className={`block w-5 h-0.5 bg-[var(--text)] transition-all ${menuOpen ? 'opacity-0' : 'opacity-100'}`} />
+          <span className={`block w-5 h-0.5 bg-[var(--text)] transition-all ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
         </button>
       </div>
 
@@ -98,14 +99,15 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="md:hidden overflow-hidden bg-[#050508]/95 backdrop-blur-xl border-t border-white/10"
+            className="md:hidden overflow-hidden border-t border-[var(--border)]"
+            style={{ background: "color-mix(in srgb, var(--bg) 95%, transparent)" }}
           >
             <div className="px-6 py-6 flex flex-col gap-4">
               {links.map((l) => (
                 <a 
                   key={l} 
                   href={`#${l}`} 
-                  className={`capitalize text-lg font-medium ${activeLink === l ? 'text-cyan-400' : 'text-slate-300'}`} 
+                  className={`capitalize text-lg font-medium ${activeLink === l ? 'text-[var(--cyan)]' : 'text-[var(--text)]'}`} 
                   onClick={() => {
                     setMenuOpen(false);
                     setActiveLink(l);
@@ -114,13 +116,13 @@ export default function Navbar() {
                   {l}
                 </a>
               ))}
-              <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
+              <div className="mt-4 pt-4 border-t border-[var(--border)] flex items-center justify-between">
                 <ThemeToggle />
                 <a
                   href="https://github.com/Sahilhamids"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-cyan-400 text-sm font-medium"
+                  className="text-[var(--cyan)] text-sm font-medium"
                 >
                   GitHub ↗
                 </a>

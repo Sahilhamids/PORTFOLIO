@@ -137,10 +137,10 @@ export default function Projects() {
                     <span className="text-xs" style={{ color: "var(--border)" }}>0{i + 1}</span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-white mb-0.5">{p.name}</h3>
+                  <h3 className="text-xl font-bold text-[var(--text)] mb-0.5">{p.name}</h3>
                   <p className="text-sm mb-3" style={{ color: p.accent }}>{p.tagline}</p>
 
-                  <p className="mb-4" style={{ color: "var(--muted)", lineHeight: 1.7, fontSize: "0.875rem" }}>
+                  <p className="text-[var(--text)] opacity-80 text-sm mb-5 leading-relaxed">
                     {p.description}
                   </p>
 
@@ -154,17 +154,17 @@ export default function Projects() {
 
                   <div className="flex gap-4 mt-2">
                     {"live" in p.links && p.links.live && (
-                      <a href={p.links.live as string} target="_blank" rel="noopener noreferrer" className="group/link flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-white hover:text-cyan-400 transition-colors">
+                      <a href={p.links.live as string} target="_blank" rel="noopener noreferrer" className="group/link flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--text)] hover:text-[var(--cyan)] transition-colors">
                         Live 
-                        <div className="overflow-hidden relative w-3 h-3 text-cyan-400">
+                        <div className="overflow-hidden relative w-3 h-3 text-[var(--cyan)]">
                            <ArrowUpRight className="w-3 h-3 absolute group-hover/link:translate-x-3 group-hover/link:-translate-y-3 transition-transform duration-300" />
                            <ArrowUpRight className="w-3 h-3 absolute -translate-x-3 translate-y-3 group-hover/link:translate-x-0 group-hover/link:translate-y-0 transition-transform duration-300" />
                         </div>
                       </a>
                     )}
-                    <a href={p.links.github} target="_blank" rel="noopener noreferrer" className="group/link flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-slate-400 hover:text-white transition-colors">
+                    <a href={p.links.github} target="_blank" rel="noopener noreferrer" className="group/link flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--muted)] hover:text-[var(--text)] transition-colors">
                       GitHub
-                      <div className="overflow-hidden relative w-3 h-3 text-slate-300">
+                      <div className="overflow-hidden relative w-3 h-3 text-[var(--muted)] group-hover/link:text-[var(--text)]">
                          <ArrowUpRight className="w-3 h-3 absolute group-hover/link:translate-x-3 group-hover/link:-translate-y-3 transition-transform duration-300" />
                          <ArrowUpRight className="w-3 h-3 absolute -translate-x-3 translate-y-3 group-hover/link:translate-x-0 group-hover/link:translate-y-0 transition-transform duration-300" />
                       </div>
