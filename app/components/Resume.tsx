@@ -47,8 +47,8 @@ export default function Resume() {
               <span className="font-bold tracking-wider uppercase text-sm">{showPreview ? "Hide Preview" : "View Preview"}</span>
             </button>
             <a 
-              href="/resume/Sahil_Hamid_Shaikh_Resume.pdf" 
-              download
+              href="/resume/Sahil_Hamid_Shaikh_Resume.pdf?v=2" 
+              download="Sahil_Hamid_Shaikh_Resume.pdf"
               className="group flex items-center justify-center gap-3 px-8 py-4 bg-[var(--cyan)]/10 hover:bg-[var(--cyan)]/20 border border-[var(--cyan)]/30 text-[var(--cyan)] rounded-xl transition-all brutal-border hover:-translate-y-1 shadow-lg"
             >
               <FileText className="w-5 h-5" />
@@ -72,7 +72,7 @@ export default function Resume() {
                 <span className="text-[var(--muted)] tracking-widest text-sm uppercase">Loading PDF...</span>
               </div>
               <iframe 
-                src="/resume/Sahil_Hamid_Shaikh_Resume.pdf#toolbar=0" 
+                src="/resume/Sahil_Hamid_Shaikh_Resume.pdf?v=2#toolbar=0" 
                 className="w-full h-full relative z-10 border-0"
                 title="Sahil Hamid Resume"
               />
