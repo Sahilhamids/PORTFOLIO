@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ArrowUpRight } from "lucide-react";
 
 const roles = ["Backend Engineer", "Python Developer", "API Builder", "AI-Augmented Developer"];
 
@@ -29,7 +29,7 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center grid-bg overflow-hidden">
+    <section id="hero" className="relative min-h-screen flex items-center grid-bg overflow-hidden brutal-border-b">
       {/* Ambient glow blobs */}
       <motion.div
         animate={{
@@ -106,12 +106,20 @@ export default function Hero() {
             from intelligent resume tools to full-stack web apps.
           </motion.p>
 
-          <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
-            <a href="#projects" className="btn-primary group relative overflow-hidden bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 px-6 py-3 transition-all rounded-md">
-              View My Work
+          <motion.div variants={itemVariants} className="flex flex-wrap gap-6 mt-4">
+            <a href="#projects" className="group flex items-center gap-3 bg-white/5 hover:bg-white/10 text-white border brutal-border px-8 py-4 transition-all">
+              <span className="font-bold tracking-wide uppercase text-sm">View My Work</span>
+              <div className="overflow-hidden relative w-4 h-4 text-cyan-400">
+                 <ArrowUpRight className="w-4 h-4 absolute group-hover:translate-x-4 group-hover:-translate-y-4 transition-transform duration-300 ease-in-out" />
+                 <ArrowUpRight className="w-4 h-4 absolute -translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
+              </div>
             </a>
-            <a href="#contact" className="btn-ghost px-6 py-3 border border-slate-700/50 hover:border-slate-500 text-slate-300 transition-all rounded-md">
-              Get In Touch
+            <a href="#contact" className="group flex items-center gap-3 px-8 py-4 border border-transparent hover:border-white/10 text-slate-300 hover:text-white transition-all">
+              <span className="font-bold tracking-wide uppercase text-sm">Get In Touch</span>
+              <div className="overflow-hidden relative w-4 h-4 text-purple-400">
+                 <ArrowUpRight className="w-4 h-4 absolute group-hover:translate-x-4 group-hover:-translate-y-4 transition-transform duration-300 ease-in-out" />
+                 <ArrowUpRight className="w-4 h-4 absolute -translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-300 ease-in-out" />
+              </div>
             </a>
           </motion.div>
 

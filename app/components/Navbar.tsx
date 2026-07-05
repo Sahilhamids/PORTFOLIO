@@ -38,7 +38,7 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${scrolled ? 'bg-[#050508]/80 backdrop-blur-md border-b border-white/5 shadow-lg' : 'bg-transparent border-b border-transparent'}`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${scrolled ? 'bg-[#050508]/80 backdrop-blur-md brutal-border-b shadow-lg' : 'bg-transparent border-b border-transparent'}`}
     >
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
         <a href="#hero" className="text-white font-bold tracking-widest text-sm hover:text-cyan-400 transition-colors" style={{ letterSpacing: "0.2em" }}>

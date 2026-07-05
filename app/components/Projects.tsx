@@ -1,5 +1,6 @@
 "use client";
-import { motion } from "framer-motion";interface Project {
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";interface Project {
   name: string;
   tagline: string;
   description: string;
@@ -93,7 +94,7 @@ const badgeColors: Record<string, { bg: string; color: string }> = {
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-28 grid-bg">
+    <section id="projects" className="py-28 grid-bg brutal-border-b">
       <div className="max-w-6xl mx-auto px-6">
         <div className="mb-14">
           <p className="section-label mb-3">What I&apos;ve Built</p>
@@ -111,8 +112,8 @@ export default function Projects() {
               transition={{ duration: 0.6, delay: i * 0.1 }}
               whileHover={{ y: -4, scale: 1.005 }}
               key={p.name}
-              className="card-glow rounded-xl relative overflow-hidden backdrop-blur-md transition-all shadow-xl"
-              style={{ background: "rgba(15, 15, 22, 0.7)", border: "1px solid rgba(255, 255, 255, 0.08)" }}
+              className="group card-glow brutal-border relative overflow-hidden backdrop-blur-md transition-all hover-lift"
+              style={{ background: "rgba(10, 10, 15, 0.7)" }}
             >
               {/* accent bar */}
               <div className="absolute left-0 top-0 bottom-0 w-0.5" style={{ background: p.accent }} />
@@ -151,14 +152,22 @@ export default function Projects() {
                     ))}
                   </div>
 
-                  <div className="flex gap-3">
+                  <div className="flex gap-4 mt-2">
                     {"live" in p.links && p.links.live && (
-                      <a href={p.links.live as string} target="_blank" rel="noopener noreferrer" className="btn-primary text-xs">
-                        Live ↗
+                      <a href={p.links.live as string} target="_blank" rel="noopener noreferrer" className="group/link flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-white hover:text-cyan-400 transition-colors">
+                        Live 
+                        <div className="overflow-hidden relative w-3 h-3 text-cyan-400">
+                           <ArrowUpRight className="w-3 h-3 absolute group-hover/link:translate-x-3 group-hover/link:-translate-y-3 transition-transform duration-300" />
+                           <ArrowUpRight className="w-3 h-3 absolute -translate-x-3 translate-y-3 group-hover/link:translate-x-0 group-hover/link:translate-y-0 transition-transform duration-300" />
+                        </div>
                       </a>
                     )}
-                    <a href={p.links.github} target="_blank" rel="noopener noreferrer" className="btn-ghost text-xs">
+                    <a href={p.links.github} target="_blank" rel="noopener noreferrer" className="group/link flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-slate-400 hover:text-white transition-colors">
                       GitHub
+                      <div className="overflow-hidden relative w-3 h-3 text-slate-300">
+                         <ArrowUpRight className="w-3 h-3 absolute group-hover/link:translate-x-3 group-hover/link:-translate-y-3 transition-transform duration-300" />
+                         <ArrowUpRight className="w-3 h-3 absolute -translate-x-3 translate-y-3 group-hover/link:translate-x-0 group-hover/link:translate-y-0 transition-transform duration-300" />
+                      </div>
                     </a>
                   </div>
                 </div>
