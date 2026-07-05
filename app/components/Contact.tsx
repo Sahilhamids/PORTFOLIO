@@ -77,6 +77,8 @@ export default function Contact() {
           <div className="flex-1 bg-[var(--bg)] p-8 brutal-border rounded-xl shadow-xl">
             <form onSubmit={handleSubmit} className="flex flex-col gap-5 relative">
               <input type="hidden" name="subject" value="New Message from Portfolio Site" />
+              {/* Honeypot — bots fill this, humans don't */}
+              <input type="text" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" />
 
               <div className="flex flex-col gap-1.5">
                 <label htmlFor="name" className="text-xs font-mono tracking-widest text-[var(--muted)] uppercase">Name</label>

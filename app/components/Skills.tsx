@@ -1,3 +1,5 @@
+"use client";
+import { useRef, useEffect, useState } from "react";
 import LiveLeetcodeCount from "./LiveLeetcodeCount";
 
 const categories = [
@@ -40,6 +42,35 @@ const aiTools = [
   { name: "Gemini Agent", desc: "Code planning, context-aware suggestions" },
 ];
 
+function AnimatedBar({ level, color }: { level: number; color: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(0);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setWidth(level); },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [level]);
+
+  return (
+    <div ref={ref} className="h-0.5 rounded" style={{ background: "var(--border)" }}>
+      <div
+        className="h-0.5 rounded"
+        style={{
+          width: `${width}%`,
+          background: `linear-gradient(90deg, ${color}, ${color}88)`,
+          transition: "width 1s cubic-bezier(0.16,1,0.3,1)",
+        }}
+      />
+    </div>
+  );
+}
+
 export default function Skills() {
   return (
     <section id="skills" className="py-28" style={{ background: "var(--surface)" }}>
@@ -53,11 +84,7 @@ export default function Skills() {
 
         <div className="grid md:grid-cols-3 gap-8">
           {categories.map((cat) => (
-            <div
-              key={cat.label}
-              className="card-glow rounded-lg p-6"
-              style={{ background: "var(--bg)" }}
-            >
+            <div key={cat.label} className="card-glow rounded-lg p-6" style={{ background: "var(--bg)" }}>
               <h3 className="font-semibold text-sm tracking-widest uppercase mb-6" style={{ color: cat.color }}>
                 {cat.label}
               </h3>
@@ -66,17 +93,10 @@ export default function Skills() {
                   <div key={s.name}>
                     <div className="flex justify-between mb-1">
                       <span className="text-sm text-white">{s.name}</span>
+                      <span className="text-xs" style={{ color: cat.color }}>{s.level}%</span>
                     </div>
                     <p className="text-xs mb-1.5" style={{ color: "var(--muted)" }}>{s.note}</p>
-                    <div className="h-0.5 rounded" style={{ background: "var(--border)" }}>
-                      <div
-                        className="skill-bar-fill"
-                        style={{
-                          width: `${s.level}%`,
-                          background: `linear-gradient(90deg, ${cat.color}, ${cat.color}88)`,
-                        }}
-                      />
-                    </div>
+                    <AnimatedBar level={s.level} color={cat.color} />
                   </div>
                 ))}
               </div>

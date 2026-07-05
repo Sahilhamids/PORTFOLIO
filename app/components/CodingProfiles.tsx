@@ -137,8 +137,8 @@ export default function CodingProfiles() {
           totalMedium: 1700,
           hardSolved: stats.hardSolved,
           totalHard: 700,
-          ranking: 1143323,
-          acceptanceRate: 55
+          ranking: stats.ranking ?? null,
+          acceptanceRate: stats.acceptanceRate ?? null,
         });
 
         // Set Calendar
@@ -177,8 +177,8 @@ export default function CodingProfiles() {
   const totalMed  = lc?.totalMedium    ?? 1700;
   const hard      = lc?.hardSolved     ?? 15;
   const totalHard = lc?.totalHard      ?? 700;
-  const rank      = lc?.ranking;
-  const acc       = lc?.acceptanceRate;
+  const rank      = lc?.ranking ?? null;
+  const acc       = lc?.acceptanceRate ?? null;
 
   return (
     <section className="py-28" style={{ background: "var(--bg)" }}>

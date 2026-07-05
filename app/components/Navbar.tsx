@@ -42,9 +42,15 @@ export default function Navbar() {
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16 w-full gap-2 sm:gap-4">
         {/* Fixed Left Logo */}
-        <a href="#hero" className="text-[var(--text)] font-bold tracking-widest text-sm hover:text-[var(--cyan)] transition-colors flex-shrink-0" style={{ letterSpacing: "0.2em" }}>
-          SHS<span className="text-cyan-500">.</span>
-        </a>
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <a href="#hero" className="text-[var(--text)] font-bold tracking-widest text-sm hover:text-[var(--cyan)] transition-colors" style={{ letterSpacing: "0.2em" }}>
+            SHS<span className="text-cyan-500">.</span>
+          </a>
+          <span className="hidden sm:flex items-center gap-1.5 text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: "rgba(0,255,136,0.08)", border: "1px solid rgba(0,255,136,0.25)", color: "#00ff88" }}>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00ff88] animate-pulse" />
+            Open to Work
+          </span>
+        </div>
 
         {/* Scrollable Center Links */}
         <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto no-scrollbar flex-1 pl-2">
