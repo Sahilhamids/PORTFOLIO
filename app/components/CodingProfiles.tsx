@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { GitHubCalendar } from "react-github-calendar";
 
 interface LCStats {
   totalSolved: number;
@@ -177,6 +178,22 @@ export default function CodingProfiles() {
 
 
         </div>
+
+        {/* ── GitHub Activity ── */}
+        <div className="mt-6">
+          <WindowFrame title="github.com/Sahilhamids" url="https://github.com/Sahilhamids" color="#ffffff">
+            <div className="p-2 md:p-6 overflow-hidden overflow-x-auto flex justify-center w-full">
+              <GitHubCalendar 
+                username="Sahilhamids" 
+                colorScheme="dark"
+                fontSize={12}
+                blockSize={12}
+                blockMargin={4}
+              />
+            </div>
+          </WindowFrame>
+        </div>
+
       </div>
     </section>
   );
