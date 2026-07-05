@@ -1,66 +1,77 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
-  const dotRef  = useRef<HTMLDivElement>(null);
-  const glowRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  
+  // Motion values for the dot (snappy)
+  const dotX = useMotionValue(0);
+  const dotY = useMotionValue(0);
+
+  // Springs for the glow (laggy/smooth)
+  const springConfig = { damping: 25, stiffness: 120, mass: 0.5 };
+  const glowX = useSpring(dotX, springConfig);
+  const glowY = useSpring(dotY, springConfig);
 
   useEffect(() => {
-    let mouseX = 0, mouseY = 0;
-    let glowX  = 0, glowY  = 0;
-    let raf: number;
-
-    const onMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-      }
+    const handleMouseMove = (e: MouseEvent) => {
+      dotX.set(e.clientX);
+      dotY.set(e.clientY);
+      if (!isVisible) setIsVisible(true);
     };
 
-    const loop = () => {
-      glowX += (mouseX - glowX) * 0.08;
-      glowY += (mouseY - glowY) * 0.08;
-      if (glowRef.current) {
-        glowRef.current.style.transform = `translate(${glowX}px, ${glowY}px)`;
-      }
-      raf = requestAnimationFrame(loop);
-    };
+    const handleMouseLeave = () => setIsVisible(false);
+    const handleMouseEnter = () => setIsVisible(true);
 
-    window.addEventListener("mousemove", onMove);
-    raf = requestAnimationFrame(loop);
+    window.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseleave", handleMouseLeave);
+    document.addEventListener("mouseenter", handleMouseEnter);
+
     return () => {
-      window.removeEventListener("mousemove", onMove);
-      cancelAnimationFrame(raf);
+      window.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener("mouseenter", handleMouseEnter);
     };
-  }, []);
+  }, [dotX, dotY, isVisible]);
+
+  // Optionally hide on touch devices
+  if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) {
+    return null; 
+  }
 
   return (
     <>
-      {/* small sharp dot — snaps instantly */}
-      <div
-        ref={dotRef}
+      <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9999]"
         style={{
-          width: 6, height: 6,
+          x: dotX,
+          y: dotY,
+          width: 6,
+          height: 6,
           borderRadius: "50%",
           background: "var(--cursor-color, #00d4ff)",
-          marginLeft: -3, marginTop: -3,
-          willChange: "transform",
+          marginLeft: -3,
+          marginTop: -3,
           mixBlendMode: "difference",
+          opacity: isVisible ? 1 : 0,
         }}
+        transition={{ duration: 0.2 }}
       />
-      {/* large soft glow — lags behind */}
-      <div
-        ref={glowRef}
+      <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9998]"
         style={{
-          width: 300, height: 300,
+          x: glowX,
+          y: glowY,
+          width: 400,
+          height: 400,
           borderRadius: "50%",
           background: "radial-gradient(circle, var(--cursor-glow, rgba(0,212,255,0.06)) 0%, transparent 70%)",
-          marginLeft: -150, marginTop: -150,
-          willChange: "transform",
+          marginLeft: -200,
+          marginTop: -200,
+          opacity: isVisible ? 1 : 0,
         }}
+        transition={{ duration: 0.5 }}
       />
     </>
   );

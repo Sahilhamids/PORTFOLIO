@@ -1,6 +1,5 @@
 "use client";
-
-interface Project {
+import { motion } from "framer-motion";interface Project {
   name: string;
   tagline: string;
   description: string;
@@ -105,10 +104,15 @@ export default function Projects() {
 
         <div className="space-y-5">
           {projects.map((p: Project, i: number) => (
-            <div
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              whileHover={{ y: -4, scale: 1.005 }}
               key={p.name}
-              className="card-glow rounded-lg relative overflow-hidden"
-              style={{ background: "var(--surface)" }}
+              className="card-glow rounded-xl relative overflow-hidden backdrop-blur-md transition-all shadow-xl"
+              style={{ background: "rgba(15, 15, 22, 0.7)", border: "1px solid rgba(255, 255, 255, 0.08)" }}
             >
               {/* accent bar */}
               <div className="absolute left-0 top-0 bottom-0 w-0.5" style={{ background: p.accent }} />
@@ -178,7 +182,7 @@ export default function Projects() {
                   </div>
                 )}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
