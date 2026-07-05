@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, X } from "lucide-react";
 import Image from "next/image";
+import MagneticButton from "./MagneticButton";
+import { track } from "@vercel/analytics";
 
 interface Project {
   name: string;
@@ -325,13 +327,17 @@ export default function Projects() {
                       <h3 className="text-lg font-bold mb-3 text-white border-b border-[var(--border)] pb-2">Links</h3>
                       <div className="flex flex-col gap-3">
                         {"live" in selected.links && selected.links.live && (
-                          <a href={selected.links.live as string} target="_blank" rel="noopener noreferrer" className="btn-primary text-sm w-full justify-center" style={{ background: `${selected.accent}15`, borderColor: selected.accent, color: selected.accent }}>
-                            Visit Live Site <ArrowUpRight className="w-4 h-4" />
-                          </a>
+                          <MagneticButton className="w-full">
+                            <a href={selected.links.live as string} target="_blank" rel="noopener noreferrer" onClick={() => track("Visit Live Site", { project: selected.name })} className="btn-primary text-sm w-full justify-center" style={{ background: `${selected.accent}15`, borderColor: selected.accent, color: selected.accent }}>
+                              Visit Live Site <ArrowUpRight className="w-4 h-4" />
+                            </a>
+                          </MagneticButton>
                         )}
-                        <a href={selected.links.github} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-center gap-2 py-3 rounded text-sm font-bold uppercase tracking-wider text-white bg-[var(--bg)] border border-[var(--border)] hover:border-white transition-all">
-                          View Source <ArrowUpRight className="w-4 h-4" />
-                        </a>
+                        <MagneticButton className="w-full">
+                          <a href={selected.links.github} target="_blank" rel="noopener noreferrer" onClick={() => track("View Source", { project: selected.name })} className="group flex items-center justify-center gap-2 py-3 rounded text-sm font-bold uppercase tracking-wider text-white bg-[var(--bg)] border border-[var(--border)] hover:border-white transition-all">
+                            View Source <ArrowUpRight className="w-4 h-4" />
+                          </a>
+                        </MagneticButton>
                       </div>
                     </div>
                   </div>

@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Download, FileText, Eye } from "lucide-react";
+import MagneticButton from "./MagneticButton";
+import { track } from "@vercel/analytics";
 
 export default function Resume() {
   const [showPreview, setShowPreview] = useState(false);
@@ -39,22 +41,27 @@ export default function Resume() {
             transition={{ delay: 0.2 }}
             className="flex flex-col sm:flex-row gap-4"
           >
-            <button 
-              onClick={() => setShowPreview(!showPreview)}
-              className="group flex items-center justify-center gap-3 px-8 py-4 bg-[var(--surface)] hover:bg-[var(--cyan)]/10 border border-[var(--border)] hover:border-[var(--cyan)]/30 text-[var(--text)] hover:text-[var(--cyan)] rounded-xl transition-all brutal-border hover:-translate-y-1 shadow-lg"
-            >
-              <Eye className="w-5 h-5" />
-              <span className="font-bold tracking-wider uppercase text-sm">{showPreview ? "Hide Preview" : "View Preview"}</span>
-            </button>
-            <a 
-              href="/resume/Sahil_Hamid_Shaikh_Resume.pdf?v=2" 
-              download="Sahil_Hamid_Shaikh_Resume.pdf"
-              className="group flex items-center justify-center gap-3 px-8 py-4 bg-[var(--cyan)]/10 hover:bg-[var(--cyan)]/20 border border-[var(--cyan)]/30 text-[var(--cyan)] rounded-xl transition-all brutal-border hover:-translate-y-1 shadow-lg"
-            >
-              <FileText className="w-5 h-5" />
-              <span className="font-bold tracking-wider uppercase text-sm">Download PDF</span>
-              <Download className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
-            </a>
+            <MagneticButton>
+              <button 
+                onClick={() => setShowPreview(!showPreview)}
+                className="group flex items-center justify-center gap-3 px-8 py-4 bg-[var(--surface)] hover:bg-[var(--cyan)]/10 border border-[var(--border)] hover:border-[var(--cyan)]/30 text-[var(--text)] hover:text-[var(--cyan)] rounded-xl transition-all brutal-border hover:-translate-y-1 shadow-lg"
+              >
+                <Eye className="w-5 h-5" />
+                <span className="font-bold tracking-wider uppercase text-sm">{showPreview ? "Hide Preview" : "View Preview"}</span>
+              </button>
+            </MagneticButton>
+            <MagneticButton>
+              <a 
+                href="/resume/Sahil_Hamid_Shaikh_Resume.pdf?v=2" 
+                download="Sahil_Hamid_Shaikh_Resume.pdf"
+                onClick={() => track("Downloaded Resume")}
+                className="group flex items-center justify-center gap-3 px-8 py-4 bg-[var(--cyan)]/10 hover:bg-[var(--cyan)]/20 border border-[var(--cyan)]/30 text-[var(--cyan)] rounded-xl transition-all brutal-border hover:-translate-y-1 shadow-lg"
+              >
+                <FileText className="w-5 h-5" />
+                <span className="font-bold tracking-wider uppercase text-sm">Download PDF</span>
+                <Download className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
+              </a>
+            </MagneticButton>
           </motion.div>
         </div>
 

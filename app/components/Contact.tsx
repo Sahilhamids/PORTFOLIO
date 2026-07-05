@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Send, CheckCircle, XCircle, Loader2 } from "lucide-react";
+import MagneticButton from "./MagneticButton";
 
 export default function Contact() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -113,19 +114,21 @@ export default function Contact() {
                 />
               </div>
 
-              <button
-                type="submit"
-                disabled={status === "loading" || status === "success"}
-                className={`mt-2 flex items-center justify-center gap-2 py-4 rounded-md font-bold tracking-wider uppercase text-sm transition-all shadow-lg ${status === "success" ? "bg-[var(--green)] text-black" :
-                    status === "error" ? "bg-red-500 text-white" :
-                      "bg-[var(--cyan)]/10 hover:bg-[var(--cyan)]/20 border border-[var(--cyan)]/50 text-[var(--cyan)] brutal-border hover:-translate-y-1"
-                  }`}
-              >
-                {status === "idle" && <><Send className="w-4 h-4" /> Send Message</>}
-                {status === "loading" && <><Loader2 className="w-4 h-4 animate-spin" /> Sending...</>}
-                {status === "success" && <><CheckCircle className="w-4 h-4" /> Message Sent!</>}
-                {status === "error" && <><XCircle className="w-4 h-4" /> Failed</>}
-              </button>
+              <MagneticButton className="w-full">
+                <button
+                  type="submit"
+                  disabled={status === "loading" || status === "success"}
+                  className={`w-full flex items-center justify-center gap-2 py-4 rounded-md font-bold tracking-wider uppercase text-sm transition-all shadow-lg ${status === "success" ? "bg-[var(--green)] text-black" :
+                      status === "error" ? "bg-red-500 text-white" :
+                        "bg-[var(--cyan)]/10 hover:bg-[var(--cyan)]/20 border border-[var(--cyan)]/50 text-[var(--cyan)] brutal-border hover:-translate-y-1"
+                    }`}
+                >
+                  {status === "idle" && <><Send className="w-4 h-4" /> Send Message</>}
+                  {status === "loading" && <><Loader2 className="w-4 h-4 animate-spin" /> Sending...</>}
+                  {status === "success" && <><CheckCircle className="w-4 h-4" /> Message Sent!</>}
+                  {status === "error" && <><XCircle className="w-4 h-4" /> Failed</>}
+                </button>
+              </MagneticButton>
 
               {status === "error" && (
                 <p className="text-red-400 text-xs text-center mt-2">{errorMessage}</p>
