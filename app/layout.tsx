@@ -18,11 +18,20 @@ export const metadata: Metadata = {
     siteName: "Sahil Hamid Portfolio",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Sahil Hamid Shaikh Portfolio",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Sahil Hamid Shaikh | Full-Stack Engineer",
     description: "Portfolio of Sahil Hamid Shaikh, AI & Backend Engineer specializing in Python, FastAPI, and full-stack development.",
+    images: ["/opengraph-image"],
   },
 };
 

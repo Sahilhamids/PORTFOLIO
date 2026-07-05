@@ -19,7 +19,9 @@ export default function Image() {
           fontFamily: 'sans-serif',
           color: 'white',
           padding: 80,
-          border: '8px solid #00d4ff',
+          borderWidth: 8,
+          borderStyle: 'solid',
+          borderColor: '#00d4ff',
         }}
       >
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
