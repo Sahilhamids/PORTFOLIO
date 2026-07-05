@@ -47,8 +47,9 @@ const themes = [
 export default function ThemeToggle() {
   const [active, setActive] = useState("dark-cyan");
   const [open, setOpen] = useState(false);
+  const [autoMode, setAutoMode] = useState(true);
 
-  const applyTheme = (id: string) => {
+  const applyTheme = (id: string, isManual = false) => {
     const theme = themes.find(t => t.id === id);
     if (!theme) return;
     const root = document.documentElement;
@@ -57,13 +58,46 @@ export default function ThemeToggle() {
     setActive(id);
     localStorage.setItem("portfolio-theme", id);
     setOpen(false);
+    
+    if (isManual) {
+      setAutoMode(false);
+      localStorage.setItem("portfolio-theme-auto", "false");
+    }
   };
 
   useEffect(() => {
     const saved = localStorage.getItem("portfolio-theme") ?? "dark-cyan";
-    applyTheme(saved);
+    const savedAuto = localStorage.getItem("portfolio-theme-auto");
+    if (savedAuto === "false") {
+      setAutoMode(false);
+    }
+    applyTheme(saved, false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Automatic Color Cycling
+  useEffect(() => {
+    if (!autoMode) return;
+    
+    const darkThemes = themes.filter(t => t.id.startsWith("dark-"));
+    const interval = setInterval(() => {
+      setActive(prevActive => {
+        const currentIndex = darkThemes.findIndex(t => t.id === prevActive);
+        // If current is light theme, switch to first dark theme
+        const nextIndex = currentIndex === -1 ? 0 : (currentIndex + 1) % darkThemes.length;
+        const nextTheme = darkThemes[nextIndex];
+        
+        const root = document.documentElement;
+        Object.entries(nextTheme.vars).forEach(([k, v]) => root.style.setProperty(k, v));
+        root.setAttribute("data-theme", nextTheme.id);
+        localStorage.setItem("portfolio-theme", nextTheme.id);
+        
+        return nextTheme.id;
+      });
+    }, 6000); // Shift colors every 6 seconds
+    
+    return () => clearInterval(interval);
+  }, [autoMode]);
 
   const current = themes.find(t => t.id === active)!;
 
@@ -83,7 +117,7 @@ export default function ThemeToggle() {
           className="w-3 h-3 rounded-full flex-shrink-0"
           style={{ background: current.vars["--cyan"] }}
         />
-        {current.label}
+        {current.label} {autoMode && <span className="text-[10px] ml-1 opacity-60">(Auto)</span>}
         <span style={{ fontSize: "0.6rem" }}>▼</span>
       </button>
 
@@ -95,7 +129,7 @@ export default function ThemeToggle() {
           {themes.map(t => (
             <button
               key={t.id}
-              onClick={() => applyTheme(t.id)}
+              onClick={() => applyTheme(t.id, true)}
               className="w-full flex items-center gap-3 px-4 py-2.5 text-xs transition-colors text-left"
               style={{
                 color: active === t.id ? "var(--cyan)" : "var(--muted)",
@@ -107,6 +141,24 @@ export default function ThemeToggle() {
               {active === t.id && <span className="ml-auto" style={{ color: "var(--cyan)" }}>✓</span>}
             </button>
           ))}
+          <button
+            onClick={() => {
+              setAutoMode(true);
+              localStorage.setItem("portfolio-theme-auto", "true");
+              setOpen(false);
+            }}
+            className="w-full flex items-center gap-3 px-4 py-2.5 text-xs transition-colors text-left border-t border-[var(--border)]"
+            style={{
+              color: autoMode ? "var(--cyan)" : "var(--muted)",
+              background: autoMode ? "rgba(255,255,255,0.04)" : "transparent",
+            }}
+          >
+            <span className="w-3 h-3 rounded-full flex-shrink-0 flex items-center justify-center border border-[var(--cyan)]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--cyan)] animate-pulse" />
+            </span>
+            Auto Rotate
+            {autoMode && <span className="ml-auto" style={{ color: "var(--cyan)" }}>✓</span>}
+          </button>
         </div>
       )}
     </div>
