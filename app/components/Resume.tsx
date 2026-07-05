@@ -1,8 +1,11 @@
 "use client";
-import { motion } from "framer-motion";
-import { Download, FileText } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Download, FileText, Eye } from "lucide-react";
 
 export default function Resume() {
+  const [showPreview, setShowPreview] = useState(false);
+
   return (
     <section id="resume" className="py-24 border-t border-[var(--border)] relative overflow-hidden">
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[var(--cyan)] to-transparent opacity-20" />
@@ -34,11 +37,19 @@ export default function Resume() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
+            className="flex flex-col sm:flex-row gap-4"
           >
+            <button 
+              onClick={() => setShowPreview(!showPreview)}
+              className="group flex items-center justify-center gap-3 px-8 py-4 bg-[var(--surface)] hover:bg-[var(--cyan)]/10 border border-[var(--border)] hover:border-[var(--cyan)]/30 text-[var(--text)] hover:text-[var(--cyan)] rounded-xl transition-all brutal-border hover:-translate-y-1 shadow-lg"
+            >
+              <Eye className="w-5 h-5" />
+              <span className="font-bold tracking-wider uppercase text-sm">{showPreview ? "Hide Preview" : "View Preview"}</span>
+            </button>
             <a 
               href="/resume/Sahil_Hamid_Shaikh_Resume.pdf" 
               download
-              className="group flex items-center gap-3 px-8 py-4 bg-[var(--cyan)]/10 hover:bg-[var(--cyan)]/20 border border-[var(--cyan)]/30 text-[var(--cyan)] rounded-xl transition-all brutal-border hover:-translate-y-1 shadow-lg"
+              className="group flex items-center justify-center gap-3 px-8 py-4 bg-[var(--cyan)]/10 hover:bg-[var(--cyan)]/20 border border-[var(--cyan)]/30 text-[var(--cyan)] rounded-xl transition-all brutal-border hover:-translate-y-1 shadow-lg"
             >
               <FileText className="w-5 h-5" />
               <span className="font-bold tracking-wider uppercase text-sm">Download PDF</span>
@@ -47,23 +58,27 @@ export default function Resume() {
           </motion.div>
         </div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="w-full h-[600px] md:h-[800px] brutal-border rounded-2xl overflow-hidden shadow-2xl relative bg-[var(--surface)]"
-        >
-          {/* Subtle loading skeleton background */}
-          <div className="absolute inset-0 flex items-center justify-center animate-pulse">
-            <span className="text-[var(--muted)] tracking-widest text-sm uppercase">Loading PDF...</span>
-          </div>
-          <iframe 
-            src="/resume/Sahil_Hamid_Shaikh_Resume.pdf#toolbar=0" 
-            className="w-full h-full relative z-10 border-0"
-            title="Sahil Hamid Resume"
-          />
-        </motion.div>
+        <AnimatePresence>
+          {showPreview && (
+            <motion.div 
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 600 }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.4 }}
+              className="w-full brutal-border rounded-2xl overflow-hidden shadow-2xl relative bg-[var(--surface)] md:!h-[800px]"
+            >
+              {/* Subtle loading skeleton background */}
+              <div className="absolute inset-0 flex items-center justify-center animate-pulse">
+                <span className="text-[var(--muted)] tracking-widest text-sm uppercase">Loading PDF...</span>
+              </div>
+              <iframe 
+                src="/resume/Sahil_Hamid_Shaikh_Resume.pdf#toolbar=0" 
+                className="w-full h-full relative z-10 border-0"
+                title="Sahil Hamid Resume"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
