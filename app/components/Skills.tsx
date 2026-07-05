@@ -1,3 +1,5 @@
+import LiveLeetcodeCount from "./LiveLeetcodeCount";
+
 const categories = [
   {
     label: "Languages",
@@ -24,7 +26,7 @@ const categories = [
     label: "Tools & Concepts",
     color: "var(--green)",
     skills: [
-      { name: "DSA", level: 78, note: "140+ LeetCode problems" },
+      { name: "DSA", level: 78, note: <><LiveLeetcodeCount fallback="140" />+ LeetCode problems</> },
       { name: "OOP", level: 72, note: "Coursework + project design" },
       { name: "Git / GitHub", level: 65, note: "Version control, daily use" },
       { name: "Linux", level: 50, note: "File ops, navigation" },

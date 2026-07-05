@@ -1,3 +1,6 @@
+import Image from "next/image";
+import LiveLeetcodeCount from "./LiveLeetcodeCount";
+
 export default function About() {
   return (
     <section id="about" className="py-28" style={{ background: "var(--surface)" }}>
@@ -63,7 +66,7 @@ export default function About() {
                 decision.
               </p>
               <p>
-                140+ LeetCode problems solved and ranked 1st out of 6 teams in the final-year capstone evaluation.
+                <LiveLeetcodeCount fallback="140" />+ LeetCode problems solved and ranked 1st out of 6 teams in the final-year capstone evaluation.
               </p>
             </div>
 

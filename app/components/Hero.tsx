@@ -168,7 +168,7 @@ export default function Hero() {
         >
           {/* Photo 1 (Bottom Left) */}
           <motion.div
-            className="absolute w-64 h-80 rounded-xl overflow-hidden brutal-border shadow-2xl z-10"
+            className="absolute w-72 h-96 rounded-xl overflow-hidden brutal-border shadow-2xl z-10"
             initial={{ rotate: -12, x: -40, y: 30 }}
             whileHover={{ rotate: -25, x: -120, y: 10, scale: 1.05, zIndex: 40 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -180,7 +180,7 @@ export default function Hero() {
 
           {/* Photo 2 (Bottom Right) */}
           <motion.div
-            className="absolute w-64 h-80 rounded-xl overflow-hidden brutal-border shadow-2xl z-20"
+            className="absolute w-72 h-96 rounded-xl overflow-hidden brutal-border shadow-2xl z-20"
             initial={{ rotate: 8, x: 40, y: -10 }}
             whileHover={{ rotate: 20, x: 120, y: -20, scale: 1.05, zIndex: 40 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -192,7 +192,7 @@ export default function Hero() {
 
           {/* Photo 3 (Top Center) */}
           <motion.div
-            className="absolute w-72 h-[360px] rounded-xl overflow-hidden brutal-border shadow-2xl z-30"
+            className="absolute w-[320px] h-[400px] rounded-xl overflow-hidden brutal-border shadow-2xl z-30"
             initial={{ rotate: -2, x: 0, y: 0 }}
             whileHover={{ rotate: 0, x: 0, y: -40, scale: 1.05, zIndex: 40 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
