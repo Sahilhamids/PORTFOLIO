@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { ChevronDown, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 
 const roles = ["Backend Engineer", "Python Developer", "API Builder", "AI-Augmented Developer"];
 
@@ -58,7 +59,10 @@ export default function Hero() {
         }}
       />
 
-      <div className="max-w-6xl mx-auto px-6 pt-24 pb-16 w-full relative z-10">
+      <div className="max-w-7xl mx-auto px-6 relative z-10 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        
+        {/* Left Column: Text Content */}
+        <div className="mt-20 lg:mt-0">
         <motion.div 
           className="max-w-3xl"
           variants={containerVariants}
@@ -142,6 +146,49 @@ export default function Hero() {
                 <p className="text-xs mt-1 text-[var(--muted)] group-hover:text-[var(--text)] transition-colors">{s.label}</p>
               </motion.div>
             ))}
+          </motion.div>
+        </motion.div>
+        </div>
+
+        {/* Right Column: Animated Image Stack */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="relative h-[500px] w-full hidden lg:flex items-center justify-center group"
+        >
+          {/* Photo 1 (Bottom Left) */}
+          <motion.div
+            className="absolute w-64 h-80 rounded-xl overflow-hidden brutal-border shadow-2xl z-10"
+            initial={{ rotate: -12, x: -40, y: 30 }}
+            whileHover={{ rotate: -25, x: -120, y: 10, scale: 1.05, zIndex: 40 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            style={{ transformOrigin: "bottom left" }}
+          >
+            <Image src="/images/hero/photo1.jpg" alt="Sahil Hamid" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+            <div className="absolute inset-0 bg-[var(--cyan)]/20 mix-blend-overlay pointer-events-none transition-opacity duration-300 group-hover:opacity-0" />
+          </motion.div>
+
+          {/* Photo 2 (Bottom Right) */}
+          <motion.div
+            className="absolute w-64 h-80 rounded-xl overflow-hidden brutal-border shadow-2xl z-20"
+            initial={{ rotate: 8, x: 40, y: -10 }}
+            whileHover={{ rotate: 20, x: 120, y: -20, scale: 1.05, zIndex: 40 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            style={{ transformOrigin: "bottom right" }}
+          >
+            <Image src="/images/hero/photo2.jpg" alt="Sahil Hamid" fill className="object-cover grayscale hover:grayscale-0 transition-all duration-500" />
+            <div className="absolute inset-0 bg-[var(--purple)]/20 mix-blend-overlay pointer-events-none transition-opacity duration-300 group-hover:opacity-0" />
+          </motion.div>
+
+          {/* Photo 3 (Top Center) */}
+          <motion.div
+            className="absolute w-72 h-[360px] rounded-xl overflow-hidden brutal-border shadow-2xl z-30"
+            initial={{ rotate: -2, x: 0, y: 0 }}
+            whileHover={{ rotate: 0, x: 0, y: -40, scale: 1.05, zIndex: 40 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <Image src="/images/hero/photo3.jpg" alt="Sahil Hamid" fill className="object-cover transition-all duration-500" priority />
           </motion.div>
         </motion.div>
       </div>
