@@ -31,7 +31,7 @@ export default function Image() {
           </p>
           <div style={{ display: 'flex', marginTop: 60, alignItems: 'center', justifyContent: 'center' }}>
             <div style={{ display: 'flex', padding: '10px 30px', background: '#222222', borderRadius: '100px', fontSize: 24, color: '#a1a1aa' }}>
-              portfolio-sahilhamids.vercel.app
+              sahilhamids-portfolio.vercel.app/
             </div>
           </div>
         </div>

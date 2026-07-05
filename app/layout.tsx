@@ -8,13 +8,13 @@ import { Analytics } from "@vercel/analytics/react";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://portfolio-sahilhamids.vercel.app"),
+  metadataBase: new URL("https://sahilhamids-portfolio.vercel.app"),
   title: "Sahil Hamid Shaikh | Full-Stack Engineer",
   description: "Portfolio of Sahil Hamid Shaikh, AI & Backend Engineer specializing in Python, FastAPI, and full-stack development.",
   openGraph: {
     title: "Sahil Hamid Shaikh | Full-Stack Engineer",
     description: "Portfolio of Sahil Hamid Shaikh, AI & Backend Engineer specializing in Python, FastAPI, and full-stack development.",
-    url: "https://portfolio-sahilhamids.vercel.app",
+    url: "https://sahilhamids-portfolio.vercel.app",
     siteName: "Sahil Hamid Portfolio",
     locale: "en_US",
     type: "website",
