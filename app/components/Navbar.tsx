@@ -108,9 +108,15 @@ export default function Navbar() {
                   key={l} 
                   href={`#${l}`} 
                   className={`capitalize text-lg font-medium ${activeLink === l ? 'text-[var(--cyan)]' : 'text-[var(--text)]'}`} 
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
                     setMenuOpen(false);
                     setActiveLink(l);
+                    const el = document.getElementById(l);
+                    if (el) {
+                      const y = el.getBoundingClientRect().top + window.scrollY - 80;
+                      window.scrollTo({ top: y, behavior: 'smooth' });
+                    }
                   }}
                 >
                   {l}
