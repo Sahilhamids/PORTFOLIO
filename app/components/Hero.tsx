@@ -10,6 +10,14 @@ const roles = ["Backend Engineer", "Python Developer", "API Builder", "AI-Augmen
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [leetcodeCount, setLeetcodeCount] = useState("140+");
+  const [isMobile, setIsMobile] = useState(true); // Default true to avoid hydration mismatch layout breaking
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -173,9 +181,10 @@ export default function Hero() {
         >
           {/* Photo 1 (Bottom Left) */}
           <motion.div
-            className="absolute w-72 h-96 rounded-xl overflow-hidden brutal-border shadow-2xl z-10"
-            initial={{ rotate: -12, x: -40, y: 30 }}
-            whileHover={{ rotate: -25, x: -120, y: 10, scale: 1.05, zIndex: 40 }}
+            className="absolute w-44 h-60 md:w-72 md:h-96 rounded-xl overflow-hidden brutal-border shadow-2xl z-10"
+            initial={{ rotate: -12, x: isMobile ? -20 : -40, y: isMobile ? 15 : 30 }}
+            whileHover={{ rotate: -25, x: isMobile ? -60 : -120, y: isMobile ? 5 : 10, scale: 1.05, zIndex: 40 }}
+            whileTap={{ rotate: -25, x: isMobile ? -60 : -120, y: isMobile ? 5 : 10, scale: 1.05, zIndex: 40 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             style={{ transformOrigin: "bottom left" }}
           >
@@ -185,9 +194,10 @@ export default function Hero() {
 
           {/* Photo 2 (Bottom Right) */}
           <motion.div
-            className="absolute w-72 h-96 rounded-xl overflow-hidden brutal-border shadow-2xl z-20"
-            initial={{ rotate: 8, x: 40, y: -10 }}
-            whileHover={{ rotate: 20, x: 120, y: -20, scale: 1.05, zIndex: 40 }}
+            className="absolute w-44 h-60 md:w-72 md:h-96 rounded-xl overflow-hidden brutal-border shadow-2xl z-20"
+            initial={{ rotate: 8, x: isMobile ? 20 : 40, y: isMobile ? -5 : -10 }}
+            whileHover={{ rotate: 20, x: isMobile ? 60 : 120, y: isMobile ? -10 : -20, scale: 1.05, zIndex: 40 }}
+            whileTap={{ rotate: 20, x: isMobile ? 60 : 120, y: isMobile ? -10 : -20, scale: 1.05, zIndex: 40 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
             style={{ transformOrigin: "bottom right" }}
           >
@@ -197,9 +207,10 @@ export default function Hero() {
 
           {/* Photo 3 (Top Center) */}
           <motion.div
-            className="absolute w-[320px] h-[400px] rounded-xl overflow-hidden brutal-border shadow-2xl z-30"
+            className="absolute w-52 h-72 md:w-[320px] md:h-[400px] rounded-xl overflow-hidden brutal-border shadow-2xl z-30"
             initial={{ rotate: -2, x: 0, y: 0 }}
-            whileHover={{ rotate: 0, x: 0, y: -40, scale: 1.05, zIndex: 40 }}
+            whileHover={{ rotate: 0, x: 0, y: isMobile ? -20 : -40, scale: 1.05, zIndex: 40 }}
+            whileTap={{ rotate: 0, x: 0, y: isMobile ? -20 : -40, scale: 1.05, zIndex: 40 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
             <Image src="/images/hero/photo1.jpg" alt="Sahil Hamid" fill className="object-cover transition-all duration-500" priority />
