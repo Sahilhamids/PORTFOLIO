@@ -40,49 +40,45 @@ export default function Navbar() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'backdrop-blur-md brutal-border-b shadow-lg' : 'border-b border-transparent'}`}
       style={{ background: scrolled ? "color-mix(in srgb, var(--bg) 85%, transparent)" : "transparent" }}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-        <a href="#hero" className="text-[var(--text)] font-bold tracking-widest text-sm hover:text-[var(--cyan)] transition-colors hidden sm:block flex-shrink-0" style={{ letterSpacing: "0.2em" }}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16 w-full gap-2 sm:gap-4">
+        {/* Fixed Left Logo */}
+        <a href="#hero" className="text-[var(--text)] font-bold tracking-widest text-sm hover:text-[var(--cyan)] transition-colors flex-shrink-0" style={{ letterSpacing: "0.2em" }}>
           SHS<span className="text-cyan-500">.</span>
         </a>
 
-        {/* Unified Nav (Scrollable on mobile) */}
-        <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto no-scrollbar w-full sm:w-auto">
-          <a href="#hero" className="text-[var(--text)] font-bold tracking-widest text-sm hover:text-[var(--cyan)] transition-colors sm:hidden flex-shrink-0 mr-4" style={{ letterSpacing: "0.2em" }}>
-            SHS<span className="text-cyan-500">.</span>
-          </a>
-          
-          <div className="flex items-center gap-1 sm:gap-2">
-            {links.map((l) => (
-              <a 
-                key={l} 
-                href={`#${l}`} 
-                className={`relative px-3 sm:px-4 py-2 capitalize text-sm font-medium transition-colors whitespace-nowrap ${activeLink === l ? 'text-[var(--cyan)]' : 'text-[var(--text-muted)] hover:text-[var(--text)]'}`}
-                onClick={() => setActiveLink(l)}
-              >
-                {l}
-                {activeLink === l && (
-                  <motion.div
-                    layoutId="activeNavIndicator"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--cyan)]"
-                    initial={false}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                )}
-              </a>
-            ))}
-          </div>
-          
-          <div className="ml-2 sm:ml-4 flex items-center gap-2 sm:gap-4 border-l border-[var(--border)] pl-2 sm:pl-4 flex-shrink-0">
-            <ThemeToggle />
-            <a
-              href="https://github.com/Sahilhamids"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary text-xs py-1.5 px-3 sm:px-4 bg-[var(--cyan)]/10 hover:bg-[var(--cyan)]/20 border border-[var(--cyan)]/30 text-[var(--cyan)] rounded-md transition-all whitespace-nowrap"
+        {/* Scrollable Center Links */}
+        <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto no-scrollbar flex-1 pl-2">
+          {links.map((l) => (
+            <a 
+              key={l} 
+              href={`#${l}`} 
+              className={`relative px-3 sm:px-4 py-2 capitalize text-sm font-medium transition-colors whitespace-nowrap ${activeLink === l ? 'text-[var(--cyan)]' : 'text-[var(--text-muted)] hover:text-[var(--text)]'}`}
+              onClick={() => setActiveLink(l)}
             >
-              GitHub ↗
+              {l}
+              {activeLink === l && (
+                <motion.div
+                  layoutId="activeNavIndicator"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-[var(--cyan)]"
+                  initial={false}
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                />
+              )}
             </a>
-          </div>
+          ))}
+        </div>
+        
+        {/* Fixed Right Actions */}
+        <div className="flex items-center gap-2 sm:gap-4 border-l border-[var(--border)] pl-2 sm:pl-4 flex-shrink-0">
+          <ThemeToggle />
+          <a
+            href="https://github.com/Sahilhamids"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary text-xs py-1.5 px-3 sm:px-4 bg-[var(--cyan)]/10 hover:bg-[var(--cyan)]/20 border border-[var(--cyan)]/30 text-[var(--cyan)] rounded-md transition-all whitespace-nowrap"
+          >
+            GitHub ↗
+          </a>
         </div>
       </div>
     </motion.nav>
