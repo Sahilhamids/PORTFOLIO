@@ -208,24 +208,6 @@ export default function Projects() {
                     </div>
                   </div>
 
-                  {/* ── image side (only rendered when image is set) ── */}
-                  {"image" in p && p.image && (
-                    <div
-                      className="flex items-center justify-center flex-shrink-0 w-full md:w-[340px] border-t md:border-t-0 md:border-l border-[var(--border)]"
-                      style={{ background: "rgba(0,0,0,0.3)" }}
-                    >
-                      <div className="relative w-full h-full min-h-[200px] md:min-h-full">
-                        <Image
-                          src={p.image as string}
-                          alt={`${p.name} screenshot`}
-                          fill
-                          className="object-cover"
-                          style={{ opacity: 0.9 }}
-                          onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
-                        />
-                      </div>
-                    </div>
-                  )}
                 </div>
               </motion.div>
             ))}
@@ -305,12 +287,14 @@ export default function Projects() {
                       </div>
                     )}
 
-                    <div className="p-6 bg-[var(--bg)] border border-[var(--border)] rounded-lg flex items-center justify-center min-h-[200px]">
-                      <p className="text-sm font-mono text-[var(--muted)] uppercase tracking-widest text-center">
-                        [Architecture Diagram Placeholder]<br />
-                        <span className="text-xs lowercase opacity-60 mt-2 block">Replace with actual image in the future</span>
-                      </p>
-                    </div>
+                    {selected.image ? (
+                      <div>
+                        <h3 className="text-lg font-bold mb-3 text-white border-b border-[var(--border)] pb-2">Architecture</h3>
+                        <div className="relative w-full rounded-lg overflow-hidden border border-[var(--border)] bg-[var(--bg)]">
+                          <Image src={selected.image} alt={`${selected.name} architecture`} width={800} height={450} className="w-full h-auto object-contain" />
+                        </div>
+                      </div>
+                    ) : null}
                   </div>
 
                   <div className="space-y-8">
