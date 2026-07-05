@@ -24,21 +24,39 @@ export default function CustomCursor() {
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
 
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        dotX.set(e.touches[0].clientX);
+        dotY.set(e.touches[0].clientY);
+        if (!isVisible) setIsVisible(true);
+      }
+    };
+
+    const handleTouchEnd = () => setIsVisible(false);
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        dotX.set(e.touches[0].clientX);
+        dotY.set(e.touches[0].clientY);
+        setIsVisible(true);
+      }
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("touchmove", handleTouchMove);
+    window.addEventListener("touchstart", handleTouchStart);
     document.addEventListener("mouseleave", handleMouseLeave);
     document.addEventListener("mouseenter", handleMouseEnter);
+    document.addEventListener("touchend", handleTouchEnd);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchstart", handleTouchStart);
       document.removeEventListener("mouseleave", handleMouseLeave);
       document.removeEventListener("mouseenter", handleMouseEnter);
+      document.removeEventListener("touchend", handleTouchEnd);
     };
   }, [dotX, dotY, isVisible]);
-
-  // Optionally hide on touch devices
-  if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) {
-    return null; 
-  }
 
   return (
     <>
