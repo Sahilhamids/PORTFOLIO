@@ -18,11 +18,11 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    fetch("https://leetcode-stats-api.herokuapp.com/Sahilhamids")
+    fetch("https://alfa-leetcode-api.onrender.com/sahilhamid/solved")
       .then(res => res.json())
       .then(data => {
-        if (data.status === "success" && data.totalSolved) {
-          setLeetcodeCount(data.totalSolved.toString());
+        if (data.solvedProblem) {
+          setLeetcodeCount(data.solvedProblem.toString());
         }
       })
       .catch(err => console.error("Error fetching LeetCode stats:", err));
