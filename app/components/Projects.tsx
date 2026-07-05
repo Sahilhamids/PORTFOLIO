@@ -209,10 +209,10 @@ export default function Projects() {
                   {/* ── image side (only rendered when image is set) ── */}
                   {"image" in p && p.image && (
                     <div
-                      className="hidden md:flex items-center justify-center flex-shrink-0"
-                      style={{ width: 340, borderLeft: "1px solid var(--border)", background: "rgba(0,0,0,0.3)" }}
+                      className="flex items-center justify-center flex-shrink-0 w-full md:w-[340px] border-t md:border-t-0 md:border-l border-[var(--border)]"
+                      style={{ background: "rgba(0,0,0,0.3)" }}
                     >
-                      <div className="relative w-full h-full" style={{ minHeight: 200 }}>
+                      <div className="relative w-full h-full min-h-[200px] md:min-h-full">
                         <Image
                           src={p.image as string}
                           alt={`${p.name} screenshot`}

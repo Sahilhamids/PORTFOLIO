@@ -169,7 +169,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="relative h-[500px] w-full hidden lg:flex items-center justify-center group"
+          className="relative h-[400px] md:h-[500px] w-full flex items-center justify-center group mt-16 lg:mt-0 mb-10 lg:mb-0"
         >
           {/* Photo 1 (Bottom Left) */}
           <motion.div
