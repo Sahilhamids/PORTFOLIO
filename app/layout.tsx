@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "./components/CustomCursor";
+import CommandPalette from "./components/CommandPalette";
 import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Sahil Hamid Shaikh | Full-Stack Engineer",
     description: "Portfolio of Sahil Hamid Shaikh, AI & Backend Engineer specializing in Python, FastAPI, and full-stack development.",
-    url: "https://sarfaraz.pro", // Placeholder or exact URL
+    url: "https://portfolio-sahilhamids.vercel.app",
     siteName: "Sahil Hamid Portfolio",
     images: [
       {
@@ -43,6 +44,7 @@ export default function RootLayout({
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <body className={`${inter.className} min-h-full`}>
         <CustomCursor />
+        <CommandPalette />
         {children}
         <Analytics />
       </body>

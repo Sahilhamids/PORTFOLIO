@@ -98,25 +98,6 @@ export default function CodingProfiles() {
   const [lcErr, setLcErr] = useState(false);
 
   useEffect(() => {
-    fetch("https://alfa-leetcode-api.onrender.com/sahilhamid/solved")
-      .then(r => r.json())
-      .then(d => {
-        if (d.errors) throw new Error();
-        setLc({
-          totalSolved: d.solvedProblem,
-          totalQuestions: 3500,
-          easySolved: d.easySolved,
-          totalEasy: 800,
-          mediumSolved: d.mediumSolved,
-          totalMedium: 1700,
-          hardSolved: d.hardSolved,
-          totalHard: 700,
-          ranking: 1143323,
-          acceptanceRate: 55
-        });
-      })
-      .catch(() => setLcErr(true));
-
     const generateFallback = () => {
       const data: {date: string, count: number, level: 0|1|2|3|4}[] = [];
       const today = new Date();
@@ -140,12 +121,30 @@ export default function CodingProfiles() {
       setLcErr(true);
     }, 5000);
 
-    fetch("https://alfa-leetcode-api.onrender.com/sahilhamid/calendar")
+    fetch("/api/leetcode")
       .then(r => r.json())
       .then(d => {
-        if (d.submissionCalendar) {
+        if (d.error) throw new Error(d.error);
+        
+        // Set Stats
+        const stats = d.stats;
+        setLc({
+          totalSolved: stats.solvedProblem,
+          totalQuestions: 3500,
+          easySolved: stats.easySolved,
+          totalEasy: 800,
+          mediumSolved: stats.mediumSolved,
+          totalMedium: 1700,
+          hardSolved: stats.hardSolved,
+          totalHard: 700,
+          ranking: 1143323,
+          acceptanceRate: 55
+        });
+
+        // Set Calendar
+        if (d.calendar && d.calendar.submissionCalendar) {
           clearTimeout(fallbackTimeout);
-          const cal = JSON.parse(d.submissionCalendar);
+          const cal = JSON.parse(d.calendar.submissionCalendar);
           const data = Object.keys(cal).map(ts => {
             const date = new Date(parseInt(ts) * 1000).toISOString().split("T")[0];
             const count = cal[ts];
@@ -163,7 +162,7 @@ export default function CodingProfiles() {
         clearTimeout(fallbackTimeout);
         setLcActivity(generateFallback());
         setLcErr(true);
-        console.error("Could not fetch LC calendar:", e);
+        console.error("Could not fetch LC stats:", e);
       });
       
     return () => clearTimeout(fallbackTimeout);
