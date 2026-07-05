@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { GitHubCalendar } from "react-github-calendar";
+import { ActivityCalendar } from "react-activity-calendar";
 
 interface LCStats {
   totalSolved: number;
@@ -57,6 +58,7 @@ function Bar({ label, solved, total, color }: { label: string; solved: number; t
 
 export default function CodingProfiles() {
   const [lc, setLc] = useState<LCStats | null>(null);
+  const [lcActivity, setLcActivity] = useState<{date: string, count: number, level: 0|1|2|3|4}[]>([]);
   const [lcErr, setLcErr] = useState(false);
 
   useEffect(() => {
@@ -78,6 +80,26 @@ export default function CodingProfiles() {
         });
       })
       .catch(() => setLcErr(true));
+
+    fetch("https://alfa-leetcode-api.onrender.com/sahilhamid/calendar")
+      .then(r => r.json())
+      .then(d => {
+        if (d.submissionCalendar) {
+          const cal = JSON.parse(d.submissionCalendar);
+          const data = Object.keys(cal).map(ts => {
+            const date = new Date(parseInt(ts) * 1000).toISOString().split("T")[0];
+            const count = cal[ts];
+            let level: 0|1|2|3|4 = 0;
+            if (count > 0) level = 1;
+            if (count > 2) level = 2;
+            if (count > 5) level = 3;
+            if (count > 10) level = 4;
+            return { date, count, level };
+          });
+          setLcActivity(data.sort((a,b) => a.date.localeCompare(b.date)));
+        }
+      })
+      .catch(e => console.error("Could not fetch LC calendar:", e));
   }, []);
 
   // fallback static data from resume if API is down
@@ -198,12 +220,17 @@ export default function CodingProfiles() {
         <div className="mt-6">
           <WindowFrame title="leetcode.com/u/sahilhamid (Activity)" url="https://leetcode.com/u/sahilhamid/" color="#ffa116">
             <div className="p-2 md:p-6 overflow-hidden overflow-x-auto flex justify-center w-full">
-              {/* Using leetcard generator for a beautiful SVG activity graph */}
-              <img 
-                src="https://leetcard.jacoblin.cool/sahilhamid?theme=dark&font=Syne&ext=activity" 
-                alt="LeetCode Activity Calendar" 
-                className="w-full max-w-3xl opacity-90 hover:opacity-100 transition-opacity"
-              />
+              {lcActivity.length > 0 ? (
+                <ActivityCalendar 
+                  data={lcActivity} 
+                  colorScheme="dark"
+                  fontSize={12}
+                  blockSize={12}
+                  blockMargin={4}
+                />
+              ) : (
+                <p className="text-sm text-[var(--muted)]">Loading Activity...</p>
+              )}
             </div>
           </WindowFrame>
         </div>
