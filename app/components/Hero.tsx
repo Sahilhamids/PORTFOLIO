@@ -8,12 +8,24 @@ const roles = ["Backend Engineer", "Python Developer", "API Builder", "AI-Augmen
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
+  const [leetcodeCount, setLeetcodeCount] = useState("140+");
 
   useEffect(() => {
     const interval = setInterval(() => {
       setRoleIndex((i) => (i + 1) % roles.length);
     }, 3000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    fetch("https://leetcode-stats-api.herokuapp.com/Sahilhamids")
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === "success" && data.totalSolved) {
+          setLeetcodeCount(data.totalSolved.toString());
+        }
+      })
+      .catch(err => console.error("Error fetching LeetCode stats:", err));
   }, []);
 
   const containerVariants: Variants = {
@@ -128,12 +140,9 @@ export default function Hero() {
           </motion.div>
 
           {/* Stats row */}
-          <motion.div 
-            variants={itemVariants}
-            className="flex flex-wrap gap-10 mt-16 pt-8 border-t border-[var(--border)]"
-          >
+          <motion.div variants={itemVariants} className="flex flex-wrap gap-10 mt-16 pt-8 border-t border-[var(--border)]">
             {[
-              { value: "140+", label: "LeetCode Problems" },
+              { value: leetcodeCount, label: "LeetCode Problems" },
               { value: "6+", label: "Projects Built" },
               { value: "1st", label: "Capstone Rank" },
             ].map((s) => (
