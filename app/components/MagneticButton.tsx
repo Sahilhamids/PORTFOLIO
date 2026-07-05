@@ -35,7 +35,8 @@ export default function MagneticButton({
   const springY = useSpring(y, springConfig);
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current || disabled) return;
+    // Disable magnetic effect on touch screens/mobile devices
+    if (!ref.current || disabled || (typeof window !== 'undefined' && window.matchMedia("(pointer: coarse)").matches)) return;
     const { clientX, clientY } = e;
     const { width, height, left, top } = ref.current.getBoundingClientRect();
     const middleX = clientX - (left + width / 2);
