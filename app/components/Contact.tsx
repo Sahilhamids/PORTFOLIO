@@ -11,11 +11,11 @@ export default function Contact() {
     setStatus("loading");
 
     const formData = new FormData(e.currentTarget);
-    
+
     // Web3Forms access key
     // TODO: Replace with your actual Web3Forms access key from https://web3forms.com/
-    formData.append("access_key", "YOUR_ACCESS_KEY_HERE");
-    
+    formData.append("access_key", "5c94ac58-edc8-4421-ba57-7a3eb9e316bc");
+
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -35,7 +35,7 @@ export default function Contact() {
       setStatus("error");
       setErrorMessage("Network error. Please try again later.");
     }
-    
+
     // Reset status after a few seconds if success or error
     setTimeout(() => {
       setStatus("idle");
@@ -81,14 +81,14 @@ export default function Contact() {
           <div className="flex-1 bg-[var(--bg)] p-8 brutal-border rounded-xl shadow-xl">
             <form onSubmit={handleSubmit} className="flex flex-col gap-5 relative">
               <input type="hidden" name="subject" value="New Message from Portfolio Site" />
-              
+
               <div className="flex flex-col gap-1.5">
                 <label htmlFor="name" className="text-xs font-mono tracking-widest text-[var(--muted)] uppercase">Name</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  name="name" 
-                  required 
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
                   className="bg-[var(--surface)] border border-[var(--border)] focus:border-[var(--cyan)] rounded-md px-4 py-3 text-white outline-none transition-colors"
                   placeholder="John Doe"
                 />
@@ -96,11 +96,11 @@ export default function Contact() {
 
               <div className="flex flex-col gap-1.5">
                 <label htmlFor="email" className="text-xs font-mono tracking-widest text-[var(--muted)] uppercase">Email</label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email" 
-                  required 
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
                   className="bg-[var(--surface)] border border-[var(--border)] focus:border-[var(--cyan)] rounded-md px-4 py-3 text-white outline-none transition-colors"
                   placeholder="john@example.com"
                 />
@@ -108,24 +108,23 @@ export default function Contact() {
 
               <div className="flex flex-col gap-1.5">
                 <label htmlFor="message" className="text-xs font-mono tracking-widest text-[var(--muted)] uppercase">Message</label>
-                <textarea 
-                  id="message" 
-                  name="message" 
-                  required 
+                <textarea
+                  id="message"
+                  name="message"
+                  required
                   rows={4}
                   className="bg-[var(--surface)] border border-[var(--border)] focus:border-[var(--cyan)] rounded-md px-4 py-3 text-white outline-none transition-colors resize-none"
                   placeholder="Hi Sahil, I'd like to talk about..."
                 />
               </div>
 
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 disabled={status === "loading" || status === "success"}
-                className={`mt-2 flex items-center justify-center gap-2 py-4 rounded-md font-bold tracking-wider uppercase text-sm transition-all shadow-lg ${
-                  status === "success" ? "bg-[var(--green)] text-black" : 
-                  status === "error" ? "bg-red-500 text-white" : 
-                  "bg-[var(--cyan)]/10 hover:bg-[var(--cyan)]/20 border border-[var(--cyan)]/50 text-[var(--cyan)] brutal-border hover:-translate-y-1"
-                }`}
+                className={`mt-2 flex items-center justify-center gap-2 py-4 rounded-md font-bold tracking-wider uppercase text-sm transition-all shadow-lg ${status === "success" ? "bg-[var(--green)] text-black" :
+                    status === "error" ? "bg-red-500 text-white" :
+                      "bg-[var(--cyan)]/10 hover:bg-[var(--cyan)]/20 border border-[var(--cyan)]/50 text-[var(--cyan)] brutal-border hover:-translate-y-1"
+                  }`}
               >
                 {status === "idle" && <><Send className="w-4 h-4" /> Send Message</>}
                 {status === "loading" && <><Loader2 className="w-4 h-4 animate-spin" /> Sending...</>}
