@@ -9,7 +9,7 @@ export default function Image() {
     (
       <div
         style={{
-          background: 'linear-gradient(to bottom right, #0a0a0f, #13131a)',
+          background: '#0a0a0f',
           width: '100%',
           height: '100%',
           display: 'flex',
@@ -27,10 +27,10 @@ export default function Image() {
             Sahil Hamid Shaikh
           </h1>
           <p style={{ fontSize: 40, color: '#00d4ff', marginTop: 20, textAlign: 'center' }}>
-            Full-Stack Engineer &middot; Backend &middot; API Builder
+            Full-Stack Engineer • Backend • API Builder
           </p>
           <div style={{ display: 'flex', marginTop: 60, alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ display: 'flex', padding: '10px 30px', background: 'rgba(255,255,255,0.1)', borderRadius: '100px', fontSize: 24, color: '#a1a1aa' }}>
+            <div style={{ display: 'flex', padding: '10px 30px', background: '#ffffff1a', borderRadius: '100px', fontSize: 24, color: '#a1a1aa' }}>
               portfolio-sahilhamids.vercel.app
             </div>
           </div>
