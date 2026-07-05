@@ -139,12 +139,13 @@ const badgeColors: Record<string, { bg: string; color: string }> = {
 
 export default function Projects() {
   const [selected, setSelected] = useState<Project | null>(null);
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
 
   useEffect(() => {
-    if (selected) document.body.style.overflow = "hidden";
+    if (selected || lightboxSrc) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "unset";
     return () => { document.body.style.overflow = "unset"; };
-  }, [selected]);
+  }, [selected, lightboxSrc]);
 
   return (
     <>
@@ -290,8 +291,14 @@ export default function Projects() {
                     {selected.image ? (
                       <div>
                         <h3 className="text-lg font-bold mb-3 text-white border-b border-[var(--border)] pb-2">Architecture</h3>
-                        <div className="relative w-full rounded-lg overflow-hidden border border-[var(--border)] bg-[var(--bg)]">
-                          <Image src={selected.image} alt={`${selected.name} architecture`} width={800} height={450} className="w-full h-auto object-contain" />
+                        <div
+                          className="relative w-full rounded-lg overflow-hidden border border-[var(--border)] bg-[var(--bg)] cursor-zoom-in group"
+                          onClick={() => setLightboxSrc(selected.image!)}
+                        >
+                          <Image src={selected.image} alt={`${selected.name} architecture`} width={800} height={450} className="w-full h-auto object-contain transition-transform duration-300 group-hover:scale-105" />
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30">
+                            <span className="text-white text-xs font-mono tracking-widest uppercase bg-black/60 px-3 py-1 rounded">Click to expand</span>
+                          </div>
                         </div>
                       </div>
                     ) : null}
@@ -329,6 +336,36 @@ export default function Projects() {
                   </div>
                 </div>
               </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightboxSrc && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setLightboxSrc(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-md p-4 cursor-zoom-out"
+          >
+            <motion.div
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.85, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-6xl w-full"
+            >
+              <button
+                onClick={() => setLightboxSrc(null)}
+                className="absolute -top-10 right-0 p-2 text-white/60 hover:text-white transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              <Image src={lightboxSrc} alt="Architecture diagram" width={1400} height={900} className="w-full h-auto rounded-xl border border-[var(--border)] object-contain" />
             </motion.div>
           </motion.div>
         )}
