@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Send, CheckCircle, XCircle, Loader2 } from "lucide-react";
 import MagneticButton from "./MagneticButton";
+import { track } from "@vercel/analytics";
 
 export default function Contact() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -63,6 +64,7 @@ export default function Contact() {
                 <a
                   key={l.label}
                   href={l.href}
+                  onClick={() => track("Clicked Social Link", { label: l.label })}
                   target={l.label !== "Email" ? "_blank" : undefined}
                   rel={l.label !== "Email" ? "noopener noreferrer" : undefined}
                   className="nav-link text-sm font-medium hover:text-white transition-colors"

@@ -4,6 +4,7 @@ import { motion, AnimatePresence, Variants, PanInfo } from "framer-motion";
 import { ChevronDown, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import MagneticButton from "./MagneticButton";
+import { track } from "@vercel/analytics";
 
 const roles = ["Backend Engineer", "Python Developer", "API Builder", "AI-Augmented Developer"];
 
@@ -162,7 +163,7 @@ export default function Hero() {
 
           <motion.div variants={itemVariants} className="flex flex-wrap gap-6 mt-4">
             <MagneticButton>
-              <a href="#projects" className="group flex items-center gap-3 bg-[var(--surface)] hover:bg-[var(--border)] text-[var(--text)] border brutal-border px-8 py-4 transition-all">
+              <a href="#projects" onClick={() => track("Clicked View Work", { location: "Hero" })} className="group flex items-center gap-3 bg-[var(--surface)] hover:bg-[var(--border)] text-[var(--text)] border brutal-border px-8 py-4 transition-all">
                 <span className="font-bold tracking-wide uppercase text-sm">View My Work</span>
                 <div className="overflow-hidden relative w-4 h-4 text-[var(--cyan)]">
                    <ArrowUpRight className="w-4 h-4 absolute group-hover:translate-x-4 group-hover:-translate-y-4 transition-transform duration-300 ease-in-out" />
@@ -171,7 +172,7 @@ export default function Hero() {
               </a>
             </MagneticButton>
             <MagneticButton>
-              <a href="#contact" className="group flex items-center gap-3 px-8 py-4 border border-transparent hover:border-[var(--border)] text-[var(--muted)] hover:text-[var(--text)] transition-all">
+              <a href="#contact" onClick={() => track("Clicked Get In Touch", { location: "Hero" })} className="group flex items-center gap-3 px-8 py-4 border border-transparent hover:border-[var(--border)] text-[var(--muted)] hover:text-[var(--text)] transition-all">
                 <span className="font-bold tracking-wide uppercase text-sm">Get In Touch</span>
                 <div className="overflow-hidden relative w-4 h-4 text-[var(--purple)]">
                    <ArrowUpRight className="w-4 h-4 absolute group-hover:translate-x-4 group-hover:-translate-y-4 transition-transform duration-300 ease-in-out" />
