@@ -166,10 +166,18 @@ export default function CodingProfiles() {
       });
 
     // Fetch GitHub
+    const ghFallbackTimeout = setTimeout(() => {
+      setGhActivity(prev => prev.length === 0 ? generateFallback() : prev);
+    }, 5000);
+
     fetch(`https://github-contributions-api.jogruber.de/v4/Sahilhamids?y=last&t=${Date.now()}`, { cache: "no-store" })
-      .then(r => r.json())
+      .then(r => {
+        if (!r.ok) throw new Error("GitHub API failed");
+        return r.json();
+      })
       .then(d => {
         if (d && d.contributions) {
+          clearTimeout(ghFallbackTimeout);
           // ensure data is properly typed for ActivityCalendar
           const ghData = d.contributions.map((c: any) => ({
             date: c.date,
@@ -180,7 +188,9 @@ export default function CodingProfiles() {
         }
       })
       .catch(e => {
-        console.error("Could not fetch GitHub stats:", e);
+        clearTimeout(ghFallbackTimeout);
+        setGhActivity(prev => prev.length === 0 ? generateFallback() : prev);
+        console.error("Could not fetch GH stats:", e);
       });
       
     return () => clearTimeout(fallbackTimeout);
