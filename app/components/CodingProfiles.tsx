@@ -131,13 +131,13 @@ export default function CodingProfiles() {
         
         // Set Stats
         setLc({
-          totalSolved: statsData.solvedProblem,
+          totalSolved: Math.max(statsData.solvedProblem, 147),
           totalQuestions: 3985,
-          easySolved: statsData.easySolved,
+          easySolved: Math.max(statsData.easySolved, 62),
           totalEasy: 953,
-          mediumSolved: statsData.mediumSolved,
+          mediumSolved: Math.max(statsData.mediumSolved, 75),
           totalMedium: 2081,
-          hardSolved: statsData.hardSolved,
+          hardSolved: Math.max(statsData.hardSolved, 10),
           totalHard: 951,
         });
 
@@ -197,13 +197,13 @@ export default function CodingProfiles() {
   }, []);
 
   // fallback static data from resume if API is down
-  const solved    = lc?.totalSolved    ?? 140;
+  const solved    = lc?.totalSolved    ?? 147;
   const total     = lc?.totalQuestions ?? 3985;
-  const easy      = lc?.easySolved     ?? 50;
+  const easy      = lc?.easySolved     ?? 62;
   const totalEasy = lc?.totalEasy      ?? 953;
   const medium    = lc?.mediumSolved   ?? 75;
   const totalMed  = lc?.totalMedium    ?? 2081;
-  const hard      = lc?.hardSolved     ?? 15;
+  const hard      = lc?.hardSolved     ?? 10;
   const totalHard = lc?.totalHard      ?? 951;
 
 

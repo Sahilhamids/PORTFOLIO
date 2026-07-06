@@ -16,7 +16,7 @@ const initialPhotos = [
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
-  const [leetcodeCount, setLeetcodeCount] = useState("140+");
+  const [leetcodeCount, setLeetcodeCount] = useState<number | string>(147);
   const [isMobile, setIsMobile] = useState(true); // Default true to avoid hydration mismatch layout breaking
   const [photos, setPhotos] = useState(initialPhotos);
 
@@ -61,7 +61,7 @@ export default function Hero() {
       .then(res => res.json())
       .then(data => {
         if (data && data.solvedProblem) {
-          setLeetcodeCount(data.solvedProblem.toString());
+          setLeetcodeCount(Math.max(data.solvedProblem, 147));
         }
       })
       .catch(err => console.error("Error fetching LeetCode stats:", err));
