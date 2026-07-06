@@ -1,5 +1,27 @@
+"use client";
+import { useState, useEffect } from "react";
+
 export default function Footer() {
   const year = new Date().getFullYear();
+  const [timeStr, setTimeStr] = useState<string>("");
+
+  useEffect(() => {
+    const updateTime = () => {
+      setTimeStr(new Date().toLocaleString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      }));
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <footer className="py-10 px-6" style={{ borderTop: "1px solid var(--border)", background: "var(--bg)" }}>
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
@@ -12,9 +34,16 @@ export default function Footer() {
           <p className="text-xs" style={{ color: "var(--muted)" }}>
             Designed &amp; built by <span style={{ color: "var(--cyan)" }}>Sahil Hamid Shaikh</span> · {year}
           </p>
-          <div className="flex items-center gap-1.5 mt-0.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#00ff88] animate-pulse" />
-            <span className="text-[10px] font-semibold" style={{ color: "#00ff88" }}>Open to Work</span>
+          <div className="flex items-center gap-4 mt-0.5">
+            <div className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#00ff88] animate-pulse" />
+              <span className="text-[10px] font-semibold" style={{ color: "#00ff88" }}>Open to Work</span>
+            </div>
+            {timeStr && (
+              <span className="text-[10px] font-mono tracking-wide" style={{ color: "var(--muted)" }}>
+                {timeStr}
+              </span>
+            )}
           </div>
         </div>
 
