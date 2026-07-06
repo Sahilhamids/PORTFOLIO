@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
-import { GitHubCalendar } from "react-github-calendar";
 import { ActivityCalendar } from "react-activity-calendar";
 
 interface LCStats {
@@ -96,6 +95,7 @@ export default function CodingProfiles() {
   const [lc, setLc] = useState<LCStats | null>(null);
   const [lcActivity, setLcActivity] = useState<{date: string, count: number, level: 0|1|2|3|4}[]>([]);
   const [lcErr, setLcErr] = useState(false);
+  const [ghActivity, setGhActivity] = useState<{date: string, count: number, level: 0|1|2|3|4}[]>([]);
 
   useEffect(() => {
     const generateFallback = () => {
@@ -121,7 +121,7 @@ export default function CodingProfiles() {
       setLcErr(true);
     }, 5000);
 
-    fetch("/api/leetcode")
+    fetch(`/api/leetcode?t=${Date.now()}`, { cache: "no-store" })
       .then(r => r.json())
       .then(d => {
         if (d.error) throw new Error(d.error);
@@ -163,6 +163,24 @@ export default function CodingProfiles() {
         setLcActivity(generateFallback());
         setLcErr(true);
         console.error("Could not fetch LC stats:", e);
+      });
+
+    // Fetch GitHub
+    fetch(`https://github-contributions-api.jogruber.de/v4/Sahilhamids?y=last&t=${Date.now()}`, { cache: "no-store" })
+      .then(r => r.json())
+      .then(d => {
+        if (d && d.contributions) {
+          // ensure data is properly typed for ActivityCalendar
+          const ghData = d.contributions.map((c: any) => ({
+            date: c.date,
+            count: c.count,
+            level: c.level
+          }));
+          setGhActivity(ghData);
+        }
+      })
+      .catch(e => {
+        console.error("Could not fetch GitHub stats:", e);
       });
       
     return () => clearTimeout(fallbackTimeout);
@@ -271,13 +289,17 @@ export default function CodingProfiles() {
         <div className="mt-6">
           <WindowFrame title="github.com/Sahilhamids" url="https://github.com/Sahilhamids" color="#ffffff">
             <ScrollToRight>
-              <GitHubCalendar 
-                username="Sahilhamids" 
-                colorScheme="dark"
-                fontSize={12}
-                blockSize={12}
-                blockMargin={4}
-              />
+              {ghActivity.length > 0 ? (
+                <ActivityCalendar 
+                  data={ghActivity} 
+                  colorScheme="dark"
+                  fontSize={12}
+                  blockSize={12}
+                  blockMargin={4}
+                />
+              ) : (
+                <p className="text-sm text-[var(--muted)]">Loading Activity...</p>
+              )}
             </ScrollToRight>
           </WindowFrame>
         </div>

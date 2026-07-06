@@ -11,17 +11,11 @@ export default function About() {
           <div className="flex justify-center">
             <div
               className="relative animate-float"
-              style={{ width: 280, height: 280 }}
+              style={{ width: "min(280px, 60vw)", height: "min(280px, 60vw)" }}
             >
-              {/* Decorative rings */}
-              <div
-                className="absolute inset-0 rounded-full"
-                style={{ border: "1px solid rgba(0,212,255,0.2)", transform: "scale(1.15)" }}
-              />
-              <div
-                className="absolute inset-0 rounded-full"
-                style={{ border: "1px solid rgba(168,85,247,0.1)", transform: "scale(1.3)" }}
-              />
+              {/* Decorative rings — clamped so they don't overflow on narrow screens */}
+              <div className="absolute inset-0 rounded-full" style={{ border: "1px solid rgba(0,212,255,0.2)", transform: "scale(1.12)" }} />
+              <div className="absolute inset-0 rounded-full" style={{ border: "1px solid rgba(168,85,247,0.1)", transform: "scale(1.24)" }} />
               {/* Photo or placeholder */}
               <div
                 id="profile-photo"
@@ -31,18 +25,10 @@ export default function About() {
                   border: "2px solid rgba(0,212,255,0.3)",
                 }}
               >
-                {/* Replace this div with an <img> tag once you have a photo */}
                 <span className="text-6xl select-none">👨‍💻</span>
               </div>
               {/* Corner accent */}
-              <div
-                className="absolute"
-                style={{
-                  width: 40, height: 40, bottom: 10, right: 10,
-                  borderRight: "2px solid var(--cyan)",
-                  borderBottom: "2px solid var(--cyan)",
-                }}
-              />
+              <div className="absolute" style={{ width: 32, height: 32, bottom: 8, right: 8, borderRight: "2px solid var(--cyan)", borderBottom: "2px solid var(--cyan)" }} />
             </div>
           </div>
 

@@ -56,11 +56,11 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    fetch("https://alfa-leetcode-api.onrender.com/sahilhamid/solved")
+    fetch(`/api/leetcode?t=${Date.now()}`, { cache: "no-store" })
       .then(res => res.json())
       .then(data => {
-        if (data.solvedProblem) {
-          setLeetcodeCount(data.solvedProblem.toString());
+        if (data && data.stats && data.stats.solvedProblem) {
+          setLeetcodeCount(data.stats.solvedProblem.toString());
         }
       })
       .catch(err => console.error("Error fetching LeetCode stats:", err));
@@ -112,7 +112,7 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-6 relative z-10 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         
         {/* Left Column: Text Content */}
-        <div className="mt-20 lg:mt-0">
+        <div className="mt-16 sm:mt-20 lg:mt-0">
         <motion.div 
           className="max-w-3xl"
           variants={containerVariants}
@@ -182,7 +182,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Stats row */}
-          <motion.div variants={itemVariants} className="flex flex-wrap gap-10 mt-16 pt-8 border-t border-[var(--border)]">
+          <motion.div variants={itemVariants} className="flex flex-wrap gap-6 sm:gap-10 mt-10 sm:mt-16 pt-8 border-t border-[var(--border)]">
             {[
               { value: leetcodeCount, label: "LeetCode Problems" },
               { value: "6+", label: "Projects Built" },
@@ -206,7 +206,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="relative h-[400px] md:h-[500px] w-full flex items-center justify-center group mt-16 lg:mt-0 mb-10 lg:mb-0"
+          className="relative h-[320px] sm:h-[400px] md:h-[500px] w-full flex items-center justify-center group mt-8 lg:mt-0 mb-8 lg:mb-0"
         >
           {photos.map((photo, index) => {
             const isTop = index === 0;

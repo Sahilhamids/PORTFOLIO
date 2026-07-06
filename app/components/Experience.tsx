@@ -1,5 +1,5 @@
 "use client";
-import LiveLeetcodeCount from "./LiveLeetcodeCount";
+
 // Drop logos in public/images/experience/ and public/images/education/
 // Recommended: square PNG with transparent background, ~80×80px
 const workExp = [
@@ -112,7 +112,7 @@ export default function Experience() {
               <p className="text-xs font-mono mb-3 ml-13" style={{ color: "var(--muted)" }}>Dec 2021 – Jun 2025</p>
               <div className="space-y-1.5 text-xs" style={{ color: "var(--muted)", lineHeight: 1.6 }}>
                 <p>▹ Ranked <strong className="text-white">1st out of 6 teams</strong> in final-year capstone evaluation</p>
-                <p>▹ Solved <strong className="text-white"><LiveLeetcodeCount fallback="140" />+ LeetCode</strong> problems during degree</p>
+
                 <p>▹ Coursework: DSA, OOP, DBMS (SQL), Python, C</p>
                 <p>▹ Arduino Workshop — embedded systems practical</p>
               </div>

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 // Revalidate this route every 6 hours
-export const revalidate = 21600;
+export const revalidate = 0;
 
 export async function GET() {
   try {
@@ -9,8 +9,8 @@ export async function GET() {
 
     // Fetch both endpoints concurrently
     const [statsRes, calendarRes] = await Promise.all([
-      fetch(`https://alfa-leetcode-api.onrender.com/${username}/solved`, { next: { revalidate: 21600 } }),
-      fetch(`https://alfa-leetcode-api.onrender.com/${username}/calendar`, { next: { revalidate: 21600 } })
+      fetch(`https://alfa-leetcode-api.onrender.com/${username}/solved`, { cache: 'no-store' }),
+      fetch(`https://alfa-leetcode-api.onrender.com/${username}/calendar`, { cache: 'no-store' })
     ]);
 
     const statsData = await statsRes.json();
@@ -27,7 +27,7 @@ export async function GET() {
       },
       {
         headers: {
-          'Cache-Control': 'public, s-maxage=21600, stale-while-revalidate=86400',
+          'Cache-Control': 'no-store, max-age=0',
         },
       }
     );
