@@ -124,23 +124,13 @@ export default function CodingProfiles() {
     const username = "sahilhamid";
     Promise.all([
       fetch(`https://alfa-leetcode-api.onrender.com/${username}/solved?t=${Date.now()}`, { cache: "no-store" }).then(r => r.json()),
-      fetch(`https://alfa-leetcode-api.onrender.com/${username}/calendar?t=${Date.now()}`, { cache: "no-store" }).then(r => r.json()),
-      fetch(`https://alfa-leetcode-api.onrender.com/${username}?t=${Date.now()}`, { cache: "no-store" }).then(r => r.json())
+      fetch(`https://alfa-leetcode-api.onrender.com/${username}/calendar?t=${Date.now()}`, { cache: "no-store" }).then(r => r.json())
     ])
-      .then(([statsData, calendarData, profileData]) => {
-        if (statsData.errors || calendarData.errors || profileData.errors) {
+      .then(([statsData, calendarData]) => {
+        if (statsData.errors || calendarData.errors) {
           throw new Error("LeetCode API returned an error");
         }
         
-        let acceptanceRate = null;
-        if (statsData.acSubmissionNum && statsData.totalSubmissionNum) {
-          const ac = statsData.acSubmissionNum.find((s: any) => s.difficulty === "All")?.submissions || 0;
-          const total = statsData.totalSubmissionNum.find((s: any) => s.difficulty === "All")?.submissions || 0;
-          if (total > 0) {
-            acceptanceRate = (ac / total) * 100;
-          }
-        }
-
         // Set Stats
         setLc({
           totalSolved: statsData.solvedProblem,
@@ -151,8 +141,6 @@ export default function CodingProfiles() {
           totalMedium: 2081,
           hardSolved: statsData.hardSolved,
           totalHard: 951,
-          ranking: profileData.ranking ?? null,
-          acceptanceRate: acceptanceRate,
         });
 
         // Set Calendar
@@ -209,8 +197,7 @@ export default function CodingProfiles() {
   const totalMed  = lc?.totalMedium    ?? 2081;
   const hard      = lc?.hardSolved     ?? 15;
   const totalHard = lc?.totalHard      ?? 951;
-  const rank      = lc?.ranking ?? null;
-  const acc       = lc?.acceptanceRate ?? null;
+
 
   return (
     <section className="py-28" style={{ background: "var(--bg)" }}>
@@ -245,23 +232,6 @@ export default function CodingProfiles() {
               <Bar label="Hard"   solved={hard}   total={totalHard} color="#ef4743" />
             </div>
 
-            <div className="flex gap-4 pt-4" style={{ borderTop: "1px solid var(--border)" }}>
-              {rank && (
-                <div>
-                  <p className="text-xs" style={{ color: "var(--muted)" }}>Ranking</p>
-                  <p className="text-sm font-semibold text-white">#{rank.toLocaleString()}</p>
-                </div>
-              )}
-              {acc && (
-                <div>
-                  <p className="text-xs" style={{ color: "var(--muted)" }}>Acceptance</p>
-                  <p className="text-sm font-semibold text-white">{acc.toFixed(1)}%</p>
-                </div>
-              )}
-              {lcErr && (
-                <p className="text-xs" style={{ color: "var(--muted)" }}>Live stats unavailable — showing resume data</p>
-              )}
-            </div>
           </WindowFrame>
 
           {/* ── HackerRank ── */}
