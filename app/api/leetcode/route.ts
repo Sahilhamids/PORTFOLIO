@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
-// Revalidate this route every 6 hours
-export const revalidate = 0;
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
 
 export async function GET() {
   try {
