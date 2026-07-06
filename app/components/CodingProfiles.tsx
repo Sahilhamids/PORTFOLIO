@@ -11,8 +11,6 @@ interface LCStats {
   totalMedium: number;
   hardSolved: number;
   totalHard: number;
-  ranking: number;
-  acceptanceRate: number;
 }
 
 function ScrollToRight({ children }: { children: React.ReactNode }) {
