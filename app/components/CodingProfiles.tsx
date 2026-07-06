@@ -279,6 +279,7 @@ export default function CodingProfiles() {
                     light: ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"],
                     dark: ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"],
                   }}
+                  labels={{ totalCount: "{{count}} contributions in the last year" }}
                   fontSize={12}
                   blockSize={12}
                   blockMargin={4}
@@ -299,9 +300,10 @@ export default function CodingProfiles() {
                   data={lcActivity} 
                   colorScheme="dark"
                   theme={{
-                    light: ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"],
-                    dark: ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"],
+                    light: ["#ebedf0", "#9be9a8", "#ffa116", "#d4810a", "#a66100"],
+                    dark: ["#1e1e1e", "#3a2a12", "#754f15", "#b47010", "#ffa116"],
                   }}
+                  labels={{ totalCount: "{{count}} submissions in the last year" }}
                   fontSize={12}
                   blockSize={12}
                   blockMargin={4}
