@@ -56,11 +56,11 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    fetch(`/api/leetcode?t=${Date.now()}`, { cache: "no-store" })
+    fetch(`https://alfa-leetcode-api.onrender.com/sahilhamid/solved?t=${Date.now()}`, { cache: "no-store" })
       .then(res => res.json())
       .then(data => {
-        if (data && data.stats && data.stats.solvedProblem) {
-          setLeetcodeCount(data.stats.solvedProblem.toString());
+        if (data && data.solvedProblem) {
+          setLeetcodeCount(data.solvedProblem.toString());
         }
       })
       .catch(err => console.error("Error fetching LeetCode stats:", err));

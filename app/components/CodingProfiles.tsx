@@ -121,30 +121,44 @@ export default function CodingProfiles() {
       setLcErr(true);
     }, 5000);
 
-    fetch(`/api/leetcode?t=${Date.now()}`, { cache: "no-store" })
-      .then(r => r.json())
-      .then(d => {
-        if (d.error) throw new Error(d.error);
+    const username = "sahilhamid";
+    Promise.all([
+      fetch(`https://alfa-leetcode-api.onrender.com/${username}/solved?t=${Date.now()}`, { cache: "no-store" }).then(r => r.json()),
+      fetch(`https://alfa-leetcode-api.onrender.com/${username}/calendar?t=${Date.now()}`, { cache: "no-store" }).then(r => r.json()),
+      fetch(`https://alfa-leetcode-api.onrender.com/${username}?t=${Date.now()}`, { cache: "no-store" }).then(r => r.json())
+    ])
+      .then(([statsData, calendarData, profileData]) => {
+        if (statsData.errors || calendarData.errors || profileData.errors) {
+          throw new Error("LeetCode API returned an error");
+        }
         
+        let acceptanceRate = null;
+        if (statsData.acSubmissionNum && statsData.totalSubmissionNum) {
+          const ac = statsData.acSubmissionNum.find((s: any) => s.difficulty === "All")?.submissions || 0;
+          const total = statsData.totalSubmissionNum.find((s: any) => s.difficulty === "All")?.submissions || 0;
+          if (total > 0) {
+            acceptanceRate = (ac / total) * 100;
+          }
+        }
+
         // Set Stats
-        const stats = d.stats;
         setLc({
-          totalSolved: stats.solvedProblem,
+          totalSolved: statsData.solvedProblem,
           totalQuestions: 3985,
-          easySolved: stats.easySolved,
+          easySolved: statsData.easySolved,
           totalEasy: 953,
-          mediumSolved: stats.mediumSolved,
+          mediumSolved: statsData.mediumSolved,
           totalMedium: 2081,
-          hardSolved: stats.hardSolved,
+          hardSolved: statsData.hardSolved,
           totalHard: 951,
-          ranking: stats.ranking ?? null,
-          acceptanceRate: stats.acceptanceRate ?? null,
+          ranking: profileData.ranking ?? null,
+          acceptanceRate: acceptanceRate,
         });
 
         // Set Calendar
-        if (d.calendar && d.calendar.submissionCalendar) {
+        if (calendarData && calendarData.submissionCalendar) {
           clearTimeout(fallbackTimeout);
-          const cal = JSON.parse(d.calendar.submissionCalendar);
+          const cal = JSON.parse(calendarData.submissionCalendar);
           const data = Object.keys(cal).map(ts => {
             const date = new Date(parseInt(ts) * 1000).toISOString().split("T")[0];
             const count = cal[ts];
@@ -162,7 +176,7 @@ export default function CodingProfiles() {
         clearTimeout(fallbackTimeout);
         setLcActivity(generateFallback());
         setLcErr(true);
-        console.error("Could not fetch LC stats:", e);
+        console.error("Could not fetch LC stats directly:", e);
       });
 
     // Fetch GitHub
