@@ -80,15 +80,15 @@ export default function DashboardPage() {
   // Dashboard View
   const isMock = dashboardData?.mockData;
   // Use real data if available, otherwise use provided stats/charts
-  const stats = dashboardData?.stats || [
+  const stats: { label: string; value: string; trend: string }[] = dashboardData?.stats || [
     { label: "Total Views", value: dashboardData?.data?.pageviews || "0", trend: "0%" },
     { label: "Unique Visitors", value: dashboardData?.data?.visitors || "0", trend: "0%" },
     { label: "Avg. Session", value: "N/A", trend: "0%" },
     { label: "Bounce Rate", value: "N/A", trend: "0%" },
   ];
   
-  const chartData = dashboardData?.chartData || [40, 70, 45, 90, 65, 85, 120, 95, 110, 80, 130, 100];
-  const topSources = dashboardData?.topSources || [];
+  const chartData: number[] = dashboardData?.chartData || [40, 70, 45, 90, 65, 85, 120, 95, 110, 80, 130, 100];
+  const topSources: { source: string; percent: number }[] = dashboardData?.topSources || [];
 
   return (
     <main className="min-h-screen p-6 md:p-12" style={{ background: "#0a0a0f", color: "#fff" }}>
