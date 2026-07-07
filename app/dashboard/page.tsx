@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function DashboardPage() {
   const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | false>(false);
   const [isLoading, setIsLoading] = useState(false);
   const [dashboardData, setDashboardData] = useState<any>(null);
 
@@ -23,14 +23,19 @@ export default function DashboardPage() {
       });
 
       if (!res.ok) {
-        throw new Error("Unauthorized");
+        if (res.status === 401) {
+          throw new Error("Incorrect password.");
+        } else {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.error || "Failed to fetch from Vercel API. Check your tokens.");
+        }
       }
 
       const data = await res.json();
       setDashboardData(data);
       setIsAuthenticated(true);
-    } catch (err) {
-      setError(true);
+    } catch (err: any) {
+      setError(err.message || "An unexpected error occurred.");
       setPassword("");
     } finally {
       setIsLoading(false);
@@ -56,7 +61,7 @@ export default function DashboardPage() {
               placeholder="Enter password..."
               autoFocus
             />
-            {error && <p className="text-xs text-red-500 text-center">Incorrect password.</p>}
+            {error && <p className="text-xs text-red-500 text-center">{error}</p>}
             <button 
               type="submit"
               disabled={isLoading}
