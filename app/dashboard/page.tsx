@@ -7,19 +7,37 @@ export default function DashboardPage() {
   const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [dashboardData, setDashboardData] = useState<any>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password.toLowerCase() === "sahil") {
+    setIsLoading(true);
+    setError(false);
+
+    try {
+      const res = await fetch('/api/analytics', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      });
+
+      if (!res.ok) {
+        throw new Error("Unauthorized");
+      }
+
+      const data = await res.json();
+      setDashboardData(data);
       setIsAuthenticated(true);
-      setError(false);
-    } else {
+    } catch (err) {
       setError(true);
       setPassword("");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated || !dashboardData) {
     return (
       <main className="min-h-screen flex flex-col items-center justify-center px-6" style={{ background: "#0a0a0f", color: "#fff" }}>
         <div className="w-full max-w-sm">
@@ -41,10 +59,11 @@ export default function DashboardPage() {
             {error && <p className="text-xs text-red-500 text-center">Incorrect password.</p>}
             <button 
               type="submit"
-              className="w-full py-3 rounded text-sm font-semibold transition-all hover:opacity-80"
+              disabled={isLoading}
+              className="w-full py-3 rounded text-sm font-semibold transition-all hover:opacity-80 disabled:opacity-50"
               style={{ background: "#00d4ff", color: "#000" }}
             >
-              Unlock Dashboard
+              {isLoading ? "Unlocking..." : "Unlock Dashboard"}
             </button>
           </form>
 
@@ -59,12 +78,17 @@ export default function DashboardPage() {
   }
 
   // Dashboard View
-  const stats = [
-    { label: "Total Views", value: "24,592", trend: "+12%" },
-    { label: "Unique Visitors", value: "8,941", trend: "+5%" },
-    { label: "Avg. Session", value: "2m 14s", trend: "-1%" },
-    { label: "Bounce Rate", value: "32%", trend: "-4%" },
+  const isMock = dashboardData?.mockData;
+  // Use real data if available, otherwise use provided stats/charts
+  const stats = dashboardData?.stats || [
+    { label: "Total Views", value: dashboardData?.data?.pageviews || "0", trend: "0%" },
+    { label: "Unique Visitors", value: dashboardData?.data?.visitors || "0", trend: "0%" },
+    { label: "Avg. Session", value: "N/A", trend: "0%" },
+    { label: "Bounce Rate", value: "N/A", trend: "0%" },
   ];
+  
+  const chartData = dashboardData?.chartData || [40, 70, 45, 90, 65, 85, 120, 95, 110, 80, 130, 100];
+  const topSources = dashboardData?.topSources || [];
 
   return (
     <main className="min-h-screen p-6 md:p-12" style={{ background: "#0a0a0f", color: "#fff" }}>
@@ -75,6 +99,11 @@ export default function DashboardPage() {
               📊 Analytics
             </p>
             <h1 className="text-3xl font-black tracking-tight">Dashboard Overview</h1>
+            {isMock && (
+              <p className="text-xs text-red-400 mt-1">
+                ⚠️ Tokens missing: Showing mock data. Configure VERCEL_ACCESS_TOKEN and VERCEL_PROJECT_ID.
+              </p>
+            )}
           </div>
           <Link href="/" className="text-xs font-mono px-4 py-2 rounded border hover:bg-white/5 transition-colors" style={{ borderColor: "#ffffff1a" }}>
             ← Exit Dashboard
@@ -97,9 +126,9 @@ export default function DashboardPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 p-6 rounded-xl border bg-black/20 min-h-[300px] flex flex-col justify-end" style={{ borderColor: "#ffffff1a" }}>
-            <p className="text-zinc-500 text-sm mb-4">Traffic Chart (Mocked)</p>
+            <p className="text-zinc-500 text-sm mb-4">Traffic Chart {isMock ? "(Mocked)" : ""}</p>
             <div className="w-full flex items-end justify-between gap-2 h-40 opacity-70">
-              {[40, 70, 45, 90, 65, 85, 120, 95, 110, 80, 130, 100].map((h, j) => (
+              {chartData.map((h: number, j: number) => (
                 <div key={j} className="w-full rounded-t-sm transition-all hover:opacity-80 cursor-crosshair" style={{ height: `${h}px`, background: "linear-gradient(to top, rgba(0,212,255,0.1), rgba(0,212,255,1))" }} />
               ))}
             </div>
@@ -107,12 +136,7 @@ export default function DashboardPage() {
           <div className="p-6 rounded-xl border bg-black/20" style={{ borderColor: "#ffffff1a" }}>
             <h3 className="text-sm font-semibold mb-6">Top Sources</h3>
             <ul className="space-y-6">
-              {[
-                { source: "Direct", percent: 45 },
-                { source: "LinkedIn", percent: 30 },
-                { source: "Twitter / X", percent: 15 },
-                { source: "GitHub", percent: 10 },
-              ].map((s, i) => (
+              {topSources.length > 0 ? topSources.map((s: any, i: number) => (
                 <li key={i} className="flex flex-col gap-2">
                   <div className="flex justify-between items-center text-xs">
                     <span className="text-zinc-400">{s.source}</span>
@@ -122,7 +146,9 @@ export default function DashboardPage() {
                     <div className="h-full bg-cyan-500" style={{ width: `${s.percent}%` }} />
                   </div>
                 </li>
-              ))}
+              )) : (
+                <li className="text-xs text-zinc-500">No source data available.</li>
+              )}
             </ul>
           </div>
         </div>
