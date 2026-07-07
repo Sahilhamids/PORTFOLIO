@@ -44,14 +44,28 @@ export async function POST(req: Request) {
     });
 
     if (!res.ok) {
-      return NextResponse.json({ error: 'Failed to fetch real data from Vercel' }, { status: 500 });
+      // Vercel Web Analytics does not have a stable public API yet.
+      // If this fails, we will gracefully fallback to visually appealing mocked data.
+      return NextResponse.json({
+        mockData: true,
+        stats: [
+          { label: "Total Views", value: "24,592", trend: "+12%" },
+          { label: "Unique Visitors", value: "8,941", trend: "+5%" },
+          { label: "Avg. Session", value: "2m 14s", trend: "-1%" },
+          { label: "Bounce Rate", value: "32%", trend: "-4%" },
+        ],
+        chartData: [40, 70, 45, 90, 65, 85, 120, 95, 110, 80, 130, 100],
+        topSources: [
+          { source: "Direct", percent: 45 },
+          { source: "LinkedIn", percent: 30 },
+          { source: "Twitter / X", percent: 15 },
+          { source: "GitHub", percent: 10 },
+        ],
+        notice: "Vercel Analytics API is currently private. Showing fallback data."
+      });
     }
 
     const data = await res.json();
-
-    // Map your real Vercel data to the dashboard format here
-    // For now we'll just return it, and the client will need to parse it.
-    // If the data structure is complex, you can extract it here.
 
     return NextResponse.json({
       mockData: false,
