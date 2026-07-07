@@ -1,9 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Footer() {
   const year = new Date().getFullYear();
   const [timeStr, setTimeStr] = useState<string>("");
+  const [clickCount, setClickCount] = useState(0);
+  const router = useRouter();
 
   useEffect(() => {
     const updateTime = () => {
@@ -28,7 +31,18 @@ export default function Footer() {
 
         {/* Left */}
         <div className="flex flex-col items-center md:items-start gap-1.5">
-          <span className="font-bold tracking-widest text-sm text-[var(--text)]" style={{ letterSpacing: "0.2em" }}>
+          <span 
+            className="font-bold tracking-widest text-sm text-[var(--text)] select-none" 
+            style={{ letterSpacing: "0.2em" }}
+            onClick={() => {
+              const newCount = clickCount + 1;
+              setClickCount(newCount);
+              if (newCount === 4) {
+                router.push('/dashboard');
+                setClickCount(0);
+              }
+            }}
+          >
             SHS<span className="text-cyan-500">.</span>
           </span>
           <p className="text-xs" style={{ color: "var(--muted)" }}>

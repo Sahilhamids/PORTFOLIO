@@ -47,9 +47,6 @@ export default function StatsPage() {
           <Link href="/" className="text-xs font-mono px-4 py-2 rounded" style={{ background: "rgba(0,212,255,0.08)", border: "1px solid rgba(0,212,255,0.25)", color: "#00d4ff" }}>
             ← Back home
           </Link>
-          <span className="text-[10px]" style={{ color: "#3f3f46" }}>
-            Built with Claude Code 🤖
-          </span>
         </div>
       </div>
     </main>
